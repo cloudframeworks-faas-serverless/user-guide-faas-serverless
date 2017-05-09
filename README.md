@@ -41,7 +41,7 @@
      1. 国内网络环境
 
          ```
-        curl -sSL https://get.daocloud.io/docker | sh
+         curl -sSL https://get.daocloud.io/docker | sh
          ```
 
      2. 国外网络环境
@@ -58,7 +58,7 @@
 
      这里我们使用faas.pro域名为例进行说明。你需要使用你的域名更换类似`traefik.frontend.rule=Host:api.faas.pro`中的域名指定。
 
-   * 安装数据持久化服务MYSQL
+*    安装数据持久化服务MYSQL
 
      ```
      docker run -d --restart=always -v `pwd`/data:/var/lib/mysql \
@@ -66,11 +66,12 @@
             --restart=always  \
             -e MYSQL_DATABASE=func \
             -e MYSQL_USER=func \
-            -e MYSQL_PASSWORD=func-password \ 
+            -e MYSQL_ROOT_PASSWORD=root-password\
+            -e MYSQL_PASSWORD=func-password \
             mysql:5.5
      ```
 
-   * 安装消息队列服务REDIS
+* 安装消息队列服务REDIS
 
      ```
      docker run -d --name function-redis \
@@ -79,7 +80,7 @@
        redis redis-server --appendonly yes
      ```
 
-   * 安装API服务
+* 安装API服务
 
      ```
      docker run -d --link function-mysql:db \
@@ -91,12 +92,23 @@
         --label traefik.frontend.rule=Host:api.faas.pro \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -v $PWD/data:/app/data \
-        -e DB_URL="mysql://root:function@tcp(db:3306)/func" \
+        -e DB_URL="mysql://func:func-password@tcp(db:3306)/func" \
         -e MQ_URL="redis://mq:6379" \
         hub.faas.pro/functions
      ```
 
-   * 安装镜像仓库服务
+* 安装UI控制台
+
+     ```
+     docker run -d --restart=always --name function-ui --link function:api \
+           -e "API_URL=http://api:8080" \
+           -l traefik.tags=function-ui \
+           -l traefik.port=4000 \
+           -l traefik.frontend.rule=Host:www.faas.pro\
+           iron/functions-ui
+     ```
+
+* 安装镜像仓库服务
 
      ```
      docker run -d --name function-hub \
@@ -110,7 +122,7 @@
         registry:2
      ```
 
-   * 安装负载均衡和代理服务traefik
+* 安装负载均衡和代理服务traefik
 
      编辑trafik的配置文件`traefik.toml`
 
@@ -153,10 +165,16 @@
 
    ​       上述步骤完成后访问`<你的域名或IP>:9999` 你将看到类似下图所示的服务：
 
-   ​      ![](service.png)
+​         ![](service.png)
 
-   ​      
+   ​      访问`<你的域名或IP>`可以进入简单控制台：
+
+   ​       ![]()
 
 3. 安装客户端
+
+   ```
+   curl http://file.faas.pro/fn | sh
+   ```
 
    ​
