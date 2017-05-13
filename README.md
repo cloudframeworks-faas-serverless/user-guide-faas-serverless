@@ -88,8 +88,9 @@
         --restart always\
         --name function \
         -l traefik.port=8080\
-        --label traefik.tags=function-api \
-        --label traefik.frontend.rule=Host:api.faas.pro \
+        -l traefik.tags=function-api \
+        -l traefik.frontend.entryPoints=http \
+        -l traefik.frontend.rule=Host:api.faas.pro \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -v $PWD/data:/app/data \
         -e DB_URL="mysql://func:func-password@tcp(db:3306)/func" \
@@ -103,6 +104,7 @@
      docker run -d --restart=always --name function-ui --link function:api \
            -e "API_URL=http://api:8080" \
            -l traefik.tags=function-ui \
+           -l traefik.frontend.entryPoints=http \
            -l traefik.port=4000 \
            -l traefik.frontend.rule=Host:www.faas.pro\
            iron/functions-ui
@@ -169,12 +171,20 @@
 
    ​      访问`<你的域名或IP>`可以进入简单控制台：
 
-   ​       ![]()
+​          ![](ui.png)
 
 3. 安装客户端
 
    ```
-   curl http://file.faas.pro/fn | sh
+   curl http://fs.faas.pro/fn | sh
+   export API_URL=http://api.faas.pro
+   fn --help
    ```
 
-   ​
+
+# 框架说明
+
+* 业务
+* 组件
+
+   
