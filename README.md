@@ -280,7 +280,7 @@
 
 # <a name="常见问题"></a>常见问题
 
-任何相关问题均可通过[GitHub ISSUE](xx)提交或讨论，问题总结请查看[[QA](QA.md)]
+`TODO`
 
 # <a name="更新计划"></a>更新计划
 
@@ -297,5 +297,3 @@
 -------
 
 [云框架](ABOUT.md)系列主题，遵循[APACHE LICENSE 2.0](LICENSE.md)协议发布。
-
-
