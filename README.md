@@ -22,29 +22,9 @@ http://www.faas.pro
 
 # 快速部署
 
-## 镜像部署
+## 平台
 
-1. 系统环境准备
-
-   系统基于[Docker](https://docker.io)部署和运行，我们需要为我们的系统安装最新版的Docker服务。
-
-   * Linux系统
-
-     1. 国内网络环境
-
-         ```
-         curl -sSL https://get.daocloud.io/docker | sh
-         ```
-
-     2. 国外网络环境
-
-        ```
-        curl -s https://get.docker.com/ | sudo sh
-        ```
-
-   * MacOS
-
-     请参考[https://docs.docker.com/docker-for-mac/](https://docs.docker.com/docker-for-mac/)
+1. [准备Docker环境](../READMORE/install-docker.md)
 
 2. 基于镜像安装组件
 
@@ -157,13 +137,13 @@ http://www.faas.pro
           traefik --web
      ```
 
-   ​       上述步骤完成后访问`<你的域名或IP>:9999` 你将看到类似下图所示的服务：
+     上述步骤完成后访问`<你的域名或IP>:9999` 你将看到类似下图所示的服务：
 
-​         ![](service.png)
+     ![](../image/service.png)
 
-   ​      访问`<你的域名或IP>`可以进入简单控制台：
+     访问`<你的域名或IP>`可以进入简单控制台：
 
-​          ![](ui.png)
+     ![](../image/ui.png)
 
 3. 安装客户端
 
