@@ -16,21 +16,21 @@
 * [更新计划](#更新计划)
 * [社群贡献](#参与贡献)
 
-# 在线演示
+# <a name="在线演示"></a>在线演示
 
 http://www.faas.pro
 
-# 快速部署
+# <a name="快速部署"></a>快速部署
 
-## 平台
+## <a name="平台部署"></a>平台
 
-1. [准备Docker环境](../READMORE/install docker.md)
+1. [准备Docker环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
 
 2. 基于镜像安装组件
 
      这里我们使用faas.pro域名为例进行说明。你需要使用你的域名更换类似`traefik.frontend.rule=Host:api.faas.pro`中的域名指定。
 
-*    安装数据持久化服务MYSQL
+* 安装数据持久化服务MYSQL
 
      ```
      docker run -d --restart=always -v `pwd`/data:/var/lib/mysql \
@@ -153,8 +153,7 @@ http://www.faas.pro
    fn --help
    ```
 
-
- ## 部署应用方法
+## <a name="应用部署"></a>应用
 
 ### 实例一：获取twitter指定用户的最近推文
 
@@ -162,11 +161,11 @@ http://www.faas.pro
 
 1. 查看源码
 
-   (GitHub地址)[https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter]
+   [GitHub地址](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
 2. 构建与运行应用
 
-   (README.md)[https://github.com/cloudframeworks-functionservice/function-example/blob/master/twitter/README.md]
+   [README.md](https://github.com/cloudframeworks-functionservice/function-example/blob/master/twitter/README.md)
 
 ### 实例二：使用FaaS操作ETCD v3
 
@@ -174,26 +173,15 @@ http://www.faas.pro
 
 1. 查看源码
 
-   (GitHub地址)[https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3]
+   [GitHub地址](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
 2. 构建与运行应用
 
-   (README.md)[https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/README.md]
+   [README.md](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/README.md)
 
-### Faas应用开发说明
+## <a name="框架说明-业务"></a>框架说明-业务
 
-* FaaS应用可使用任何语言进行开发。
-* 应用具有一定的运行时间，即完成计算后退出。
-* 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果。
-* 应用需要以dockerfile进行镜像打包。
-
-# 框架说明
-
-## 业务
-
-### 业务背景
-
-​      Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提供简单，高效和可扩展性。对于两者的优势不一样：
+Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提供简单，高效和可扩展性。对于两者的优势不一样：
 
 1. 对于开发者
 
@@ -208,37 +196,25 @@ http://www.faas.pro
 * 资源利用率极高，只有在实际计算时消耗资源。
 * 适用于任何语言，任何技术设计的方法的统一运行平台。
 
-## 组件
+## <a name="框架说明-平台"></a>框架说明-平台
 
-### 架构图
+![](../image/architecture.png)
 
-![](architecture.png)
+* Traefik：了解学习现代化反向代理／负载均衡Traefik:https://traefik.io/
 
+* FunctionAPI：提供一个无状态的API服务。提供应用创建，配置，运行等API
 
+* Mysql：存储应用方法元数据
 
-### Traefik
+* Redis：消息队列，每次方法调用API产生的任务送往消息队列，调度与执行器从消息队列获取任务并执行
 
- 了解学习现代化反向代理／负载均衡Traefik:https://traefik.io/
+* Fn：命令行客户端，使你本地开发、本地部署
 
-### FunctionAPI
+* Hub：存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
 
-提供一个无状态的API服务。提供应用创建，配置，运行等API。
+## <a name="应用开发"></a>应用开发
 
-### Mysql
-
-存储应用方法元数据。
-
-### Redis
-
-消息队列，每次方法调用API产生的任务送往消息队列，调度与执行器从消息队列获取任务并执行。
-
-### Fn
-
-命令行客户端，使你本地开发，本地部署。
-
-### Hub
-
-存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
+(补充)
 
 # <a name="生产环境"></a>生产环境
 
