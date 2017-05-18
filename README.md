@@ -7,6 +7,7 @@
 * [在线演示](#在线演示)
 * [快速部署](#快速部署)
 * * [镜像部署](#镜像部署)
+   * [应用开发与部署](#部署应用方法)
 * [框架说明](#框架说明) 
    * [业务](#业务)
       * [业务背景](#业务背景)
@@ -187,6 +188,27 @@
    ```
 
 
+ ## 部署应用方法
+
+### 实例一：获取twitter指定用户的最近推文
+
+开始前，请确认你已完成以上步骤。若你想要先体验部署应用，可使用本框架维护服务端：http://api.faas.pro
+
+1. 查看源码
+
+   (GitHub地址)[https://github.com/cloudframeworks-functionservice/function-example]
+
+2. 构建与运行应用
+
+   (README.md)[https://github.com/cloudframeworks-functionservice/function-example/blob/master/twitter/README.md]
+
+### Faas应用开发说明
+
+* FaaS应用可使用任何语言进行开发。
+* 应用具有一定的运行时间，即完成计算后退出。
+* 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果。
+* 应用需要以dockerfile进行镜像打包。
+
 # 框架说明
 
 ## 业务
@@ -222,21 +244,25 @@
 
 ### FunctionAPI
 
-
+提供一个无状态的API服务。提供应用创建，配置，运行等API。
 
 ### Mysql
 
-
+存储应用方法元数据。
 
 ### Redis
 
-
+消息队列，每次方法调用API产生的任务送往消息队列，调度与执行器从消息队列获取任务并执行。
 
 ### Fn
 
-
+命令行客户端，使你本地开发，本地部署。
 
 ### Hub
+
+存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
+
+
 
 
 
