@@ -24,7 +24,7 @@ http://www.faas.pro
 
 ## 平台
 
-1. [准备Docker环境](../READMORE/install-docker.md)
+1. [准备Docker环境](../READMORE/install docker.md)
 
 2. 基于镜像安装组件
 
