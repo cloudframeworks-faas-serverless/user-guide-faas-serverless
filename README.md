@@ -179,7 +179,7 @@ http://www.faas.pro
 
    [README.md](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/README.md)
 
-## <a name="框架说明-业务"></a>框架说明-业务
+## <a name="框架说明-业务"></a>框架说明-平台
 
 Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提供简单，高效和可扩展性。对于两者的优势不一样：
 
@@ -196,7 +196,7 @@ Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提�
 * 资源利用率极高，只有在实际计算时消耗资源。
 * 适用于任何语言，任何技术设计的方法的统一运行平台。
 
-## <a name="框架说明-平台"></a>框架说明-平台
+平台架构图如下所示：
 
 ![](./image/architecture.png)
 
@@ -211,6 +211,10 @@ Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提�
 * Fn：命令行客户端，使你本地开发、本地部署
 
 * Hub：存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
+
+## <a name="框架说明-应用"></a>框架说明-应用
+
+
 
 ## <a name="应用开发"></a>应用开发
 
