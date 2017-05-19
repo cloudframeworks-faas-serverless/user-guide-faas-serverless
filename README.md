@@ -42,128 +42,25 @@ http://www.faas.pro
 
 ## <a name="平台部署"></a>平台部署
 
-1. [准备Docker环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
+1. [准备系统环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
 
-2. 基于镜像安装组件
+2. 平台docker-compose安装
+```
+# 执行前请确认已完成系统环境准备。
+wget http://fs.faas.pro/functon-docker-compose.yml -o docker-compose.yml
+docker-compose up -d
+```
+3. [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
 
-   这里我们使用faas.pro域名为例进行说明。你需要使用你的域名更换类似`traefik.frontend.rule=Host:api.faas.pro`中的域名指定。
+上述步骤完成后访问`faas.org:9999` 你将看到下图所示服务：
 
-   * 安装数据持久化服务MYSQL
+![](./image/service.png)
 
-      ```
-      docker run -d --restart=always -v `pwd`/data:/var/lib/mysql \
-             --name function-mysql \
-             --restart=always  \
-             -e MYSQL_DATABASE=func \
-             -e MYSQL_USER=func \
-             -e MYSQL_ROOT_PASSWORD=root-password\
-             -e MYSQL_PASSWORD=func-password \
-             mysql:5.5
-      ```
+访问`www.faas.org`可以进入控制台：
 
-   * 安装消息队列服务REDIS
+![](./image/ui.png)
 
-      ```
-      docker run -d --name function-redis \
-        --restart=always  \
-        -v `pwd`/data:/data\
-        redis redis-server --appendonly yes
-      ```
-
-   * 安装API服务
-
-      ```
-      docker run -d --link function-mysql:db \
-         --link function-redis:mq \
-         --restart always\
-         --name function \
-         -l traefik.port=8080\
-         -l traefik.tags=function-api \
-         -l traefik.frontend.entryPoints=http \
-         -l traefik.frontend.rule=Host:api.faas.pro \
-         -v /var/run/docker.sock:/var/run/docker.sock \
-         -v $PWD/data:/app/data \
-         -e DB_URL="mysql://func:func-password@tcp(db:3306)/func" \
-         -e MQ_URL="redis://mq:6379" \
-         hub.faas.pro/functions
-      ```
-
-   * 安装UI控制台
-
-      ```
-      docker run -d --restart=always --name function-ui --link function:api \
-            -e "API_URL=http://api:8080" \
-            -l traefik.tags=function-ui \
-            -l traefik.frontend.entryPoints=http \
-            -l traefik.port=4000 \
-            -l traefik.frontend.rule=Host:www.faas.pro\
-            iron/functions-ui
-      ```
-
-   * 安装镜像仓库服务
-
-      ```
-      docker run -d --name function-hub \
-         --restart always \
-         -v `pwd`/data:/var/lib/registry \
-         -l traefik.port=5000\
-         -l traefik.tags=function-hub\
-         -l traefik.frontend.rule=Host:hub.faas.pro\
-         -l traefik.protocol=http\
-         -l traefik.frontend.entryPoints=https \
-         registry:2
-      ```
-
-   * 安装负载均衡和代理服务traefik
-
-      编辑trafik的配置文件`traefik.toml`
-
-      ```
-      [entryPoints]
-         [entryPoints.http]
-         address = ":80"
-         [entryPoints.https]
-         address = ":443"
-           [entryPoints.https.tls]
-             [[entryPoints.https.tls.certificates]]
-             CertFile = "log/hub.faas.pro/hub.faas.pro.pem"
-             KeyFile = "log/hub.faas.pro/hub.faas.pro.key"
-
-      traefikLogsFile = "log/traefik.log"
-      accessLogsFile = "log/access.log"
-      logLevel = "DEBUG"
-
-      [docker]
-      constraints = ["tag==function-*"]
-      # Requiredi
-      endpoint = "unix:///var/run/docker.sock"
-      # Required
-      domain = "faas.pro"
-      watch = true
-      exposedbydefault = true
-      ```
-
-      需要使用你的域名证书存储路径替换配置文件的证书路径（容器内路径）。下面启动容器时需要将证书挂载到容器中。此处证书服务主要是给镜像仓库使用。
-
-      ```
-      docker run -d -p 9999:8080 -p 80:80 -p 443:443\
-           -v `pwd`/traefik.toml:/etc/traefik/traefik.toml\
-           -v /var/run/docker.sock:/var/run/docker.sock\
-           --restart always\
-           -v `pwd`/log:/log\
-           --name=traefik\
-           traefik --web
-      ```
-
-      上述步骤完成后访问`<你的域名或IP>:9999` 你将看到下图所示服务：
-
-      ![](./image/service.png)
-
-      访问`<你的域名或IP>`可以进入控制台：
-
-      ![](./image/ui.png)
-
-3. 安装Fn客户端
+4. 安装Fn客户端
 
    ```
    curl http://fs.faas.pro/fn | sh
