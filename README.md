@@ -18,7 +18,7 @@
 
 * 一个适用于任何语言、任何技术设计的方法的统一运行平台
 
-本篇[云框架](ABOUT.md)将以一个自建FaaS平台（www.faas.pro）及两个应用（[ETCD](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)_v3、[推文获取应用](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)）为例介绍FaaS／Serverless及其最佳实践。
+本篇[云框架](ABOUT.md)将以一个自建FaaS平台（www.faas.pro）及两个应用（[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[推文获取应用](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)）为例介绍FaaS／Serverless及其最佳实践。
 
 # 内容概览
 
