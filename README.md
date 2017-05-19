@@ -253,7 +253,7 @@ http://www.faas.pro
 
 ### Twitter Function Image操作实例
 
-1. Configure a [Twitter App](https://apps.twitter.com/) and [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
+1. 配置[Twitter App](https://apps.twitter.com/) 及 [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
 
 2. Development
 
@@ -326,13 +326,11 @@ http://www.faas.pro
 
 4. 云端运行
 
-   ```
-   curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
-   ```
+    ```
+    curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
+    ```
 
 ## <a name="框架说明-平台"></a>框架说明-平台
-
-（添加平台说明文字 @YEYU）
 
 平台架构图如下所示：
 
