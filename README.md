@@ -25,10 +25,10 @@
 * [在线演示](#在线演示)
 * [快速部署](#快速部署)
    * [平台部署](#平台部署)
-   * [应用部署](#应用部署)
+   * [操作实例](#操作实例)
 * [框架说明-平台](#框架说明-平台) 
-* [框架说明-应用](#框架说明-应用)
-* [应用开发](#应用开发)
+* [框架说明-操作实例](#框架说明-操作实例)
+* [FaaS应用开发](#FaaS应用开发)
 * [生产环境](#生产环境)
 * [常见问题](#常见问题)
 * [更新计划](#更新计划)
@@ -38,7 +38,7 @@
 
 http://www.faas.pro
 
-# <a name="快速部署"></a>快速部署
+# <a name="快速部署"></a>快速部署 （@Barnett 需要把代码解释清楚，并增加一键部署方式）
 
 ## <a name="平台部署"></a>平台部署
 
@@ -327,10 +327,12 @@ http://www.faas.pro
 4. 云端运行
 
    ```
-   curl -X POST --data '{"username": "zengqingguo"}' http://$FUNCAPI/r/twitter/tweets
+   curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
    ```
 
 ## <a name="框架说明-业务"></a>框架说明-平台
+
+（添加平台说明文字 @YEYU）
 
 平台架构图如下所示：
 
@@ -348,13 +350,17 @@ http://www.faas.pro
 
 * Hub：存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
 
-## <a name="框架说明-应用"></a>框架说明-应用
+## <a name="框架说明-应用"></a>框架说明-操作实例 （@Barnett 添加实际操作演示）
 
-获取twitter指定用户的最近推文
+ETCD v3 FaaS操作实例
 
-使用FaaS操作ETCD v3
+Twitter Function Image操作实例
 
-## <a name="应用开发"></a>应用开发
+## <a name="FaaS应用开发"></a>FaaS应用开发
+
+如果想要自己开发FaaS应用，可参考[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)这两个例子。
+
+需要注意的是，与普通应用相比，FaaS应用有以下特点／不同：
 
 * FaaS应用可使用任何语言进行开发
 
