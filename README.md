@@ -18,7 +18,7 @@
 
 * 一个适用于任何语言、任何技术设计的方法的统一运行平台
 
-本篇[云框架](ABOUT.md)将以一个自建FaaS平台 http://www.faas.pro 及两个应用[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[推文获取应用](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)为例介绍FaaS／Serverless及其最佳实践。
+本篇[云框架](ABOUT.md)将以一个自建FaaS平台 http://www.faas.pro 及两个FaaS操作实例[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)为例介绍FaaS／Serverless及其最佳实践。
 
 # 内容概览
 
@@ -163,7 +163,7 @@ http://www.faas.pro
 
       ![](./image/ui.png)
 
-3. 安装客户端
+3. 安装Fn客户端
 
    ```
    curl http://fs.faas.pro/fn | sh
@@ -171,15 +171,13 @@ http://www.faas.pro
    fn --help
    ```
 
-## <a name="应用部署"></a>应用部署
+## <a name="操作实例"></a>操作实例
 
-### 部署ETCD_v3
+**注意：进行以下步骤首先需确保上文平台及Fn客户端已完整部署**
 
-1. Requirements
+### ETCD v3 FaaS操作实例
 
-- Functions API
-- fn
-- ETCD v3 server ([好雨部署](etcd_v3_server.md))
+1. ETCD v3 server ([好雨部署](etcd_v3_server.md))
 
 2. Development
 
@@ -253,13 +251,9 @@ http://www.faas.pro
 
    ```
 
-### 部署推文获取应用（Twitter Function Image）
+### Twitter Function Image操作实例
 
-1. Requirements
-
-- Functions API
-- fn 
-- Configure a [Twitter App](https://apps.twitter.com/) and [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
+1. Configure a [Twitter App](https://apps.twitter.com/) and [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
 
 2. Development
 
