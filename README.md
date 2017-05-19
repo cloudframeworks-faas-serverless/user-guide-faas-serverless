@@ -1,19 +1,24 @@
-# [云框架]FaaS
+# [云框架]FaaS & Serverless
 
-Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提供简单，高效和可扩展性。对于两者的优势不一样：
+FaaS(Function as a Service)／Serverless概念在最初并不为大众所接受，但随着微服务架构及事件驱动架构的发展成熟，越来越多人认识到了其中价值。
 
-1. 对于开发者
+简单来说，FaaS／Serverless是一种新的计算范例，为开发者和运营商提供简单、高效、可扩展的计算方法，我们可以把它看作是比微服务更细粒度的架构模式。FaaS／Serverless并不意味着没有服务器，而是通过将复杂的服务器架构透明化，使开发者专注于业务／任务本身，强调了一种减少计算资源关注、工作粒度从服务器切换到“任务”的思想。
 
-* 不需要管理服务器，只需要编辑上传业务代码。其他工作由平台完成。
-* 代码微小化，只完成一个功能。维护升级非常简单。
-* 需要时执行计算任务，无需支付闲时费用。真正的按需计算和付费。
+对于开发者来说，FaaS／Serverless意味着：
 
- 若你自己运行本框架，费用问题将不是你的考虑范围。
+* 无需管理服务器，仅需关注业务代码，其他工作将由平台完成
 
-2. 对于平台运营者
+* 代码微小化，只完成一个功能，维护升级非常简单
 
-* 资源利用率极高，只有在实际计算时消耗资源。
-* 适用于任何语言，任何技术设计的方法的统一运行平台。
+* 需要时执行计算任务，无需支付闲时费用（真正的按需计算和付费）
+
+对于平台运营者来说，FaaS／Serverless意味着：
+
+* 资源利用率极高，只在实际计算时消耗资源
+
+* 一个适用于任何语言、任何技术设计的方法的统一运行平台
+
+本篇[云框架](ABOUT.md)将以一个自建FaaS平台（www.faas.pro）及两个应用（[ETCD](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)_v3、[推文获取应用](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)）为例介绍FaaS／Serverless及其最佳实践。
 
 # 内容概览
 
@@ -41,122 +46,122 @@ http://www.faas.pro
 
 2. 基于镜像安装组件
 
-     这里我们使用faas.pro域名为例进行说明。你需要使用你的域名更换类似`traefik.frontend.rule=Host:api.faas.pro`中的域名指定。
+   这里我们使用faas.pro域名为例进行说明。你需要使用你的域名更换类似`traefik.frontend.rule=Host:api.faas.pro`中的域名指定。
 
-* 安装数据持久化服务MYSQL
+   * 安装数据持久化服务MYSQL
 
-     ```
-     docker run -d --restart=always -v `pwd`/data:/var/lib/mysql \
-            --name function-mysql \
-            --restart=always  \
-            -e MYSQL_DATABASE=func \
-            -e MYSQL_USER=func \
-            -e MYSQL_ROOT_PASSWORD=root-password\
-            -e MYSQL_PASSWORD=func-password \
-            mysql:5.5
-     ```
+   ```
+   docker run -d --restart=always -v `pwd`/data:/var/lib/mysql \
+          --name function-mysql \
+          --restart=always  \
+          -e MYSQL_DATABASE=func \
+          -e MYSQL_USER=func \
+          -e MYSQL_ROOT_PASSWORD=root-password\
+          -e MYSQL_PASSWORD=func-password \
+          mysql:5.5
+   ```
 
-* 安装消息队列服务REDIS
+   * 安装消息队列服务REDIS
 
-     ```
-     docker run -d --name function-redis \
-       --restart=always  \
-       -v `pwd`/data:/data\
-       redis redis-server --appendonly yes
-     ```
+   ```
+   docker run -d --name function-redis \
+     --restart=always  \
+     -v `pwd`/data:/data\
+     redis redis-server --appendonly yes
+   ```
 
-* 安装API服务
+   * 安装API服务
 
-     ```
-     docker run -d --link function-mysql:db \
-        --link function-redis:mq \
+   ```
+   docker run -d --link function-mysql:db \
+      --link function-redis:mq \
+      --restart always\
+      --name function \
+      -l traefik.port=8080\
+      -l traefik.tags=function-api \
+      -l traefik.frontend.entryPoints=http \
+      -l traefik.frontend.rule=Host:api.faas.pro \
+      -v /var/run/docker.sock:/var/run/docker.sock \
+      -v $PWD/data:/app/data \
+      -e DB_URL="mysql://func:func-password@tcp(db:3306)/func" \
+      -e MQ_URL="redis://mq:6379" \
+      hub.faas.pro/functions
+   ```
+
+   * 安装UI控制台
+
+   ```
+   docker run -d --restart=always --name function-ui --link function:api \
+         -e "API_URL=http://api:8080" \
+         -l traefik.tags=function-ui \
+         -l traefik.frontend.entryPoints=http \
+         -l traefik.port=4000 \
+         -l traefik.frontend.rule=Host:www.faas.pro\
+         iron/functions-ui
+   ```
+
+   * 安装镜像仓库服务
+
+   ```
+   docker run -d --name function-hub \
+      --restart always \
+      -v `pwd`/data:/var/lib/registry \
+      -l traefik.port=5000\
+      -l traefik.tags=function-hub\
+      -l traefik.frontend.rule=Host:hub.faas.pro\
+      -l traefik.protocol=http\
+      -l traefik.frontend.entryPoints=https \
+      registry:2
+   ```
+
+   * 安装负载均衡和代理服务traefik
+
+   编辑trafik的配置文件`traefik.toml`
+
+   ```
+   [entryPoints]
+      [entryPoints.http]
+      address = ":80"
+      [entryPoints.https]
+      address = ":443"
+        [entryPoints.https.tls]
+          [[entryPoints.https.tls.certificates]]
+          CertFile = "log/hub.faas.pro/hub.faas.pro.pem"
+          KeyFile = "log/hub.faas.pro/hub.faas.pro.key"
+
+   traefikLogsFile = "log/traefik.log"
+   accessLogsFile = "log/access.log"
+   logLevel = "DEBUG"
+
+   [docker]
+   constraints = ["tag==function-*"]
+   # Requiredi
+   endpoint = "unix:///var/run/docker.sock"
+   # Required
+   domain = "faas.pro"
+   watch = true
+   exposedbydefault = true
+   ```
+
+   需要使用你的域名证书存储路径替换配置文件的证书路径（容器内路径）。下面启动容器时需要将证书挂载到容器中。此处证书服务主要是给镜像仓库使用。
+
+   ```
+   docker run -d -p 9999:8080 -p 80:80 -p 443:443\
+        -v `pwd`/traefik.toml:/etc/traefik/traefik.toml\
+        -v /var/run/docker.sock:/var/run/docker.sock\
         --restart always\
-        --name function \
-        -l traefik.port=8080\
-        -l traefik.tags=function-api \
-        -l traefik.frontend.entryPoints=http \
-        -l traefik.frontend.rule=Host:api.faas.pro \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        -v $PWD/data:/app/data \
-        -e DB_URL="mysql://func:func-password@tcp(db:3306)/func" \
-        -e MQ_URL="redis://mq:6379" \
-        hub.faas.pro/functions
-     ```
+        -v `pwd`/log:/log\
+        --name=traefik\
+        traefik --web
+   ```
 
-* 安装UI控制台
+   上述步骤完成后访问`<你的域名或IP>:9999` 你将看到下图所示服务：
 
-     ```
-     docker run -d --restart=always --name function-ui --link function:api \
-           -e "API_URL=http://api:8080" \
-           -l traefik.tags=function-ui \
-           -l traefik.frontend.entryPoints=http \
-           -l traefik.port=4000 \
-           -l traefik.frontend.rule=Host:www.faas.pro\
-           iron/functions-ui
-     ```
+   ![](./image/service.png)
 
-* 安装镜像仓库服务
+   访问`<你的域名或IP>`可以进入控制台：
 
-     ```
-     docker run -d --name function-hub \
-        --restart always \
-        -v `pwd`/data:/var/lib/registry \
-        -l traefik.port=5000\
-        -l traefik.tags=function-hub\
-        -l traefik.frontend.rule=Host:hub.faas.pro\
-        -l traefik.protocol=http\
-        -l traefik.frontend.entryPoints=https \
-        registry:2
-     ```
-
-* 安装负载均衡和代理服务traefik
-
-     编辑trafik的配置文件`traefik.toml`
-
-     ```
-     [entryPoints]
-        [entryPoints.http]
-        address = ":80"
-        [entryPoints.https]
-        address = ":443"
-          [entryPoints.https.tls]
-            [[entryPoints.https.tls.certificates]]
-            CertFile = "log/hub.faas.pro/hub.faas.pro.pem"
-            KeyFile = "log/hub.faas.pro/hub.faas.pro.key"
-
-     traefikLogsFile = "log/traefik.log"
-     accessLogsFile = "log/access.log"
-     logLevel = "DEBUG"
-
-     [docker]
-     constraints = ["tag==function-*"]
-     # Requiredi
-     endpoint = "unix:///var/run/docker.sock"
-     # Required
-     domain = "faas.pro"
-     watch = true
-     exposedbydefault = true
-     ```
-
-     需要使用你的域名证书存储路径替换配置文件的证书路径（容器内路径）。下面启动容器时需要将证书挂载到容器中。此处证书服务主要是给镜像仓库使用。
-
-     ```
-     docker run -d -p 9999:8080 -p 80:80 -p 443:443\
-          -v `pwd`/traefik.toml:/etc/traefik/traefik.toml\
-          -v /var/run/docker.sock:/var/run/docker.sock\
-          --restart always\
-          -v `pwd`/log:/log\
-          --name=traefik\
-          traefik --web
-     ```
-
-     上述步骤完成后访问`<你的域名或IP>:9999` 你将看到类似下图所示的服务：
-
-     ![](./image/service.png)
-
-     访问`<你的域名或IP>`可以进入简单控制台：
-
-     ![](./image/ui.png)
+   ![](./image/ui.png)
 
 3. 安装客户端
 
@@ -173,76 +178,76 @@ http://www.faas.pro
 1. Requirements
 
 - Functions API
-- fn 
-- ETCD v3 server([好雨部署](etcd_v3_server.md))
+- fn
+- ETCD v3 server ([好雨部署](etcd_v3_server.md))
 
 2. Development
 
-2.1 构建本地镜像
+   2.1 构建本地镜像
 
-```
-# 修改func.yaml文件，将name改成你自己的镜像名称。
-# build it
+   ```
+   # 修改func.yaml文件，将name改成你自己的镜像名称。
+   # build it
 
-fn build
+   fn build
 
-```
+   ```
 
-2.2 本地测试
+   2.2 本地测试
 
-```
-fn run
+   ```
+   fn run
 
-```
+   ```
 
-2.3 部署应用到仓库
+   2.3 部署应用到仓库
 
-```
-fn deploy etcd_v3
-```
+   ```
+   fn deploy etcd_v3
+   ```
 
 3. 在平台运行
 
-3.1 首先设置必须的环境变量
+   3.1 首先设置必须的环境变量
 
-```
-# Set your Function server address
-# Eg. api.faas.pro
+   ```
+   # Set your Function server address
+   # Eg. api.faas.pro
 
-FUNCAPI=YOUR_FUNCTIONS_ADDRESS
+   FUNCAPI=YOUR_FUNCTIONS_ADDRESS
 
-# ETCD服务端地址需要先部署etcd,参考： (Requirements)[#Requirements]
+   # ETCD服务端地址需要先部署etcd,参考： (Requirements)[#Requirements]
 
-ETCD_SERVER=""
-```
+   ETCD_SERVER=""
+   ```
 
-3.2 Running with Functions
+   3.2 Running with Functions
 
-* 创建应用
+   * 创建应用
 
-```
-curl -X POST --data '{
-    "app": {
-        "name": "etcd_v3",
-        "config": { 
-            "ETCD_SERVER": "'$ETCD_SERVER'",
-        }
-    }
-}' http://$FUNCAPI/v1/apps
-```
+   ```
+   curl -X POST --data '{
+       "app": {
+           "name": "etcd_v3",
+           "config": { 
+               "ETCD_SERVER": "'$ETCD_SERVER'",
+           }
+       }
+   }' http://$FUNCAPI/v1/apps
+   ```
 
-* 创建路由
+   * 创建路由
 
-```
-curl -X POST --data '{
-    "route": {
-        "image": "<镜像名>",
-        "path": "/command",
-    }
-}' http://$FUNCAPI/v1/apps/etcd_v3/routes
-```
+   ```
+    curl -X POST --data '{
+       "route": {
+           "image": "<镜像名>",
+           "path": "/command",
+       }
+   }' http://$FUNCAPI/v1/apps/etcd_v3/routes
+   ```
 
-4. 云端运行试试？
+4. 云端运行
 
 ```
 curl -X POST --data '{"method": "put","key":"/hello","value":"hello word"}' http://$FUNCAPI/r/etcd_v3/command
@@ -250,9 +255,7 @@ curl -X POST --data '{"method": "get","key":"/hello"}' http://$FUNCAPI/r/etcd_v3
 
 ```
 
-### Twitter Function Image
-
-This function exemplifies an authentication in Twitter API and get latest tweets of an account.
+### 部署推文获取应用（Twitter Function Image）
 
 1. Requirements
 
@@ -262,78 +265,78 @@ This function exemplifies an authentication in Twitter API and get latest tweets
 
 2. Development
 
-2.1 构建本地镜像
+   2.1 构建本地镜像
 
-```
-# 修改func.yaml文件，将name改成你自己的镜像名称。
-# build it
+   ```
+   # 修改func.yaml文件，将name改成你自己的镜像名称。
+   # build it
 
-fn build
+   fn build
+   ```
+   
+   2.2 本地测试
 
-```
-2.2 本地测试
+   ```
+   fn run
+   ```
 
-```
-fn run
-```
+   2.3 上传到镜像仓库
 
-2.3 上传到镜像仓库
-
-```
-docker push <镜像名>
-```
+   ```
+   docker push <镜像名>
+   ```
 
 3. 在平台运行
 
-3.1 首先设置必须的环境变量
+   3.1 首先设置必须的环境变量
 
-```
-# Set your Function server address
-# Eg. api.faas.pro
+   ```
+   # Set your Function server address
+   # Eg. api.faas.pro
+   
+   FUNCAPI=YOUR_FUNCTIONS_ADDRESS
+   
+   # 以下信息在 apps.twitter.com 申请和获取 (Requirements)[#Requirements]
+   CUSTOMER_KEY="XXXXXX"
+   CUSTOMER_SECRET="XXXXXX"
+   ACCESS_TOKEN="XXXXXX"
+   ACCESS_SECRET="XXXXXX"
+   ```
 
-FUNCAPI=YOUR_FUNCTIONS_ADDRESS
+   3.2 Running with Functions
 
-# 以下信息在 apps.twitter.com 申请和获取 (Requirements)[#Requirements]
-CUSTOMER_KEY="XXXXXX"
-CUSTOMER_SECRET="XXXXXX"
-ACCESS_TOKEN="XXXXXX"
-ACCESS_SECRET="XXXXXX"
-```
+   * 创建应用
 
-3.2 Running with Functions
+   ```
+   curl -X POST --data '{
+       "app": {
+           "name": "twitter",
+           "config": { 
+               "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
+               "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
+               "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
+               "ACCESS_SECRET": "'$ACCESS_SECRET'"
+           }
+       }
+   }' http://$FUNCAPI/v1/apps
+   ```
 
-* 创建应用
+   * 创建路由
 
-```
-curl -X POST --data '{
-    "app": {
-        "name": "twitter",
-        "config": { 
-            "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
-            "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
-            "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
-            "ACCESS_SECRET": "'$ACCESS_SECRET'"
-        }
-    }
-}' http://$FUNCAPI/v1/apps
-```
+   ```
+   curl -X POST --data '{
+       "route": {
+           "image": "<镜像名>",
+           "path": "/tweets",
+       }
+   }' http://$FUNCAPI/v1/apps/twitter/routes
+   ```
 
-* 创建路由
+4. 云端运行
 
-```
-curl -X POST --data '{
-    "route": {
-        "image": "<镜像名>",
-        "path": "/tweets",
-    }
-}' http://$FUNCAPI/v1/apps/twitter/routes
-```
-
-4. 云端运行试试？
-
-```
-curl -X POST --data '{"username": "zengqingguo"}' http://$FUNCAPI/r/twitter/tweets
-```
+   ```
+   curl -X POST --data '{"username": "zengqingguo"}' http://$FUNCAPI/r/twitter/tweets
+   ```
 
 ## <a name="框架说明-业务"></a>框架说明-平台
 
@@ -341,7 +344,7 @@ curl -X POST --data '{"username": "zengqingguo"}' http://$FUNCAPI/r/twitter/twee
 
 ![](./image/architecture.png)
 
-* Traefik：了解学习现代化反向代理／负载均衡Traefik:https://traefik.io/
+* Traefik：了解学习现代化反向代理／负载均衡（Traefik:https://traefik.io/）
 
 * FunctionAPI：提供一个无状态的API服务。提供应用创建，配置，运行等API
 
