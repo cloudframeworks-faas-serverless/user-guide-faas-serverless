@@ -185,75 +185,73 @@ http://www.faas.pro
 
    2.1 构建本地镜像
 
-   ```
-   # 修改func.yaml文件，将name改成你自己的镜像名称。
-   # build it
+      ```
+      # 修改func.yaml文件，将name改成你自己的镜像名称。
+      # build it
 
-   fn build
-
-   ```
+      fn build
+      ```
 
    2.2 本地测试
 
-   ```
-   fn run
-
-   ```
+      ```
+      fn run
+      ```
 
    2.3 部署应用到仓库
 
-   ```
-   fn deploy etcd_v3
-   ```
+      ```
+      fn deploy etcd_v3
+      ```
 
 3. 在平台运行
 
    3.1 首先设置必须的环境变量
 
-   ```
-   # Set your Function server address
-   # Eg. api.faas.pro
+      ```
+      # Set your Function server address
+      # Eg. api.faas.pro
 
-   FUNCAPI=YOUR_FUNCTIONS_ADDRESS
+      FUNCAPI=YOUR_FUNCTIONS_ADDRESS
 
-   # ETCD服务端地址需要先部署etcd,参考： (Requirements)[#Requirements]
+      # ETCD服务端地址需要先部署etcd,参考： (Requirements)[#Requirements]
 
-   ETCD_SERVER=""
-   ```
+      ETCD_SERVER=""
+      ```
 
    3.2 Running with Functions
 
    * 创建应用
 
-   ```
-   curl -X POST --data '{
-       "app": {
-           "name": "etcd_v3",
-           "config": { 
-               "ETCD_SERVER": "'$ETCD_SERVER'",
-           }
-       }
-   }' http://$FUNCAPI/v1/apps
-   ```
+      ```
+      curl -X POST --data '{
+          "app": {
+              "name": "etcd_v3",
+              "config": { 
+                  "ETCD_SERVER": "'$ETCD_SERVER'",
+              }
+          }
+      }' http://$FUNCAPI/v1/apps
+      ```
 
    * 创建路由
 
-   ```
-    curl -X POST --data '{
-       "route": {
-           "image": "<镜像名>",
-           "path": "/command",
-       }
-   }' http://$FUNCAPI/v1/apps/etcd_v3/routes
-   ```
+      ```
+       curl -X POST --data '{
+          "route": {
+              "image": "<镜像名>",
+              "path": "/command",
+          }
+      }' http://$FUNCAPI/v1/apps/etcd_v3/routes
+      ```
 
 4. 云端运行
 
-```
-curl -X POST --data '{"method": "put","key":"/hello","value":"hello word"}' http://$FUNCAPI/r/etcd_v3/command
-curl -X POST --data '{"method": "get","key":"/hello"}' http://$FUNCAPI/r/etcd_v3/command
+   ```
+   curl -X POST --data '{"method": "put","key":"/hello","value":"hello word"}' http://$FUNCAPI/r/etcd_v3/command
+   curl -X POST --data '{"method": "get","key":"/hello"}' http://$FUNCAPI/r/etcd_v3/command
 
-```
+   ```
 
 ### 部署推文获取应用（Twitter Function Image）
 
@@ -267,70 +265,70 @@ curl -X POST --data '{"method": "get","key":"/hello"}' http://$FUNCAPI/r/etcd_v3
 
    2.1 构建本地镜像
 
-   ```
-   # 修改func.yaml文件，将name改成你自己的镜像名称。
-   # build it
+      ```
+      # 修改func.yaml文件，将name改成你自己的镜像名称。
+      # build it
 
-   fn build
-   ```
+      fn build
+      ```
    
    2.2 本地测试
 
-   ```
-   fn run
-   ```
+      ```
+      fn run
+      ```
 
    2.3 上传到镜像仓库
 
-   ```
-   docker push <镜像名>
-   ```
+      ```
+      docker push <镜像名>
+      ```
 
 3. 在平台运行
 
    3.1 首先设置必须的环境变量
 
-   ```
-   # Set your Function server address
-   # Eg. api.faas.pro
+      ```
+      # Set your Function server address
+      # Eg. api.faas.pro
    
-   FUNCAPI=YOUR_FUNCTIONS_ADDRESS
+      FUNCAPI=YOUR_FUNCTIONS_ADDRESS
    
-   # 以下信息在 apps.twitter.com 申请和获取 (Requirements)[#Requirements]
-   CUSTOMER_KEY="XXXXXX"
-   CUSTOMER_SECRET="XXXXXX"
-   ACCESS_TOKEN="XXXXXX"
-   ACCESS_SECRET="XXXXXX"
-   ```
+      # 以下信息在 apps.twitter.com 申请和获取 (Requirements)[#Requirements]
+      CUSTOMER_KEY="XXXXXX"
+      CUSTOMER_SECRET="XXXXXX"
+      ACCESS_TOKEN="XXXXXX"
+      ACCESS_SECRET="XXXXXX"
+      ```
 
    3.2 Running with Functions
 
    * 创建应用
 
-   ```
-   curl -X POST --data '{
-       "app": {
-           "name": "twitter",
-           "config": { 
-               "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
-               "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
-               "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
-               "ACCESS_SECRET": "'$ACCESS_SECRET'"
-           }
-       }
-   }' http://$FUNCAPI/v1/apps
-   ```
+      ```
+      curl -X POST --data '{
+          "app": {
+              "name": "twitter",
+              "config": { 
+                  "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
+                  "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
+                  "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
+                  "ACCESS_SECRET": "'$ACCESS_SECRET'"
+              }
+          }
+      }' http://$FUNCAPI/v1/apps
+      ```
 
    * 创建路由
 
-   ```
-   curl -X POST --data '{
-       "route": {
-           "image": "<镜像名>",
-           "path": "/tweets",
-       }
-   }' http://$FUNCAPI/v1/apps/twitter/routes
-   ```
+      ```
+      curl -X POST --data '{
+          "route": {
+              "image": "<镜像名>",
+              "path": "/tweets",
+          }
+      }' http://$FUNCAPI/v1/apps/twitter/routes
+      ```
 
 4. 云端运行
 
