@@ -44,13 +44,14 @@ http://www.faas.pro
 
 1. [准备系统环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
 
-2. 平台docker-compose安装
+2. 平台安装
+* docker-compose安装
 ```
 # 执行前请确认已完成系统环境准备。
 wget http://fs.faas.pro/functon-docker-compose.yml -o docker-compose.yml
 docker-compose up -d
 ```
-3. [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
+* [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
 
 上述步骤完成后访问`faas.org:9999` 你将看到下图所示服务：
 
