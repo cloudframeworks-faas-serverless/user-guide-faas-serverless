@@ -326,10 +326,10 @@ http://www.faas.pro
 
 4. 云端运行
 
-   ```
-   curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets 
+  ```
+  curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets 
 
-   ```
+  ```
 
 ## <a name="框架说明-平台"></a>框架说明-平台
 
