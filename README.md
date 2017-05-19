@@ -1,4 +1,4 @@
-# [云框架]FaaS & Serverless
+# [云框架]FaaS Serverless Architecture
 
 FaaS(Function as a Service)／Serverless概念在最初并不为大众所接受，但随着微服务架构及事件驱动架构的发展成熟，越来越多人认识到了其中价值。
 
