@@ -36,7 +36,12 @@
 #### mac
 
    请参考[https://docs.docker.com/docker-for-mac/](https://docs.docker.com/docker-for-mac/)
-   
+## 安装docker-compose
+```
+curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```   
 ## 准备域名
 本文框架使用`faas.org`域名进行部署安装，若你有自己的域名，请使用自己的域名。
 1. 增加本地域名解析
