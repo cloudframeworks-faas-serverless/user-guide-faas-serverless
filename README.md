@@ -1,6 +1,6 @@
 # [云框架]FaaS Serverless架构
 
-FaaS(Function as a Service)／Serverless概念在最初并不为大众所接受，但随着微服务架构及事件驱动架构的发展成熟，越来越多人认识到了其中价值。
+FaaS(Function as a Service)／[Serverless](https://martinfowler.com/articles/serverless.html)概念在最初并不为大众所接受，但随着微服务架构及[事件驱动架构](http://microservices.io/patterns/data/event-driven-architecture.html)的发展成熟，越来越多人认识到了其中价值。（[Serverless架构综述](https://martinfowler.com/articles/serverless.html?from=singlemessage&isappinstalled=0)）
 
 简单来说，FaaS／Serverless是一种新的计算范例，为开发者和运营商提供简单、高效、可扩展的计算方法，我们可以把它看作是比微服务更细粒度的架构模式。FaaS／Serverless并不意味着没有服务器，而是通过将复杂的服务器架构透明化，使开发者专注于业务／任务本身，强调了一种减少计算资源关注、工作粒度从服务器切换到“任务”的思想。
 
