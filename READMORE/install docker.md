@@ -1,4 +1,4 @@
-## install docker
+## 安装 docker
 
 #### centos
 
@@ -36,3 +36,19 @@
 #### mac
 
    请参考[https://docs.docker.com/docker-for-mac/](https://docs.docker.com/docker-for-mac/)
+   
+## 准备域名
+本文框架使用`faas.org`域名进行部署安装，若你有自己的域名，请使用自己的域名。
+1. 增加本地域名解析
+```
+# 若你的机器IP是192.168.0.100
+echo "192.168.0.100 faas.org" >> /etc/hosts
+```
+2. 获取SSL证书
+* 使用faas.org域名
+```
+wget fs.faas.pro/faas.org.key -o /etc/ssl/faas.org/faas.org.key
+wget fs.faas.pro/faas.org.pem -o /etc/ssl/faas.org/faas.org.pem
+```
+* 使用自己的域名 >> [构建自签证书]() / [购买一年免费阿里云域名证书]()
+
