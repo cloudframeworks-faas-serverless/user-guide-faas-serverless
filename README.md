@@ -1,6 +1,19 @@
 # [云框架]FaaS
 
-(简介)
+Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提供简单，高效和可扩展性。对于两者的优势不一样：
+
+1. 对于开发者
+
+* 不需要管理服务器，只需要编辑上传业务代码。其他工作由平台完成。
+* 代码微小化，只完成一个功能。维护升级非常简单。
+* 需要时执行计算任务，无需支付闲时费用。真正的按需计算和付费。
+
+ 若你自己运行本框架，费用问题将不是你的考虑范围。
+
+2. 对于平台运营者
+
+* 资源利用率极高，只有在实际计算时消耗资源。
+* 适用于任何语言，任何技术设计的方法的统一运行平台。
 
 # 内容概览
 
@@ -155,19 +168,17 @@ http://www.faas.pro
 
 ## <a name="应用部署"></a>应用部署
 
-# ETCD v3 FaaS操作实例
+### 部署ETCD_v3
 
-本实例使用FaaS的方法操作etcd v3版本。
-
-## Requirements
+1. Requirements
 
 - Functions API
 - fn 
 - ETCD v3 server([好雨部署](etcd_v3_server.md))
 
-## Development
+2. Development
 
-### 构建本地镜像
+2.1 构建本地镜像
 
 ```
 # 修改func.yaml文件，将name改成你自己的镜像名称。
@@ -176,21 +187,23 @@ http://www.faas.pro
 fn build
 
 ```
-### 本地测试
+
+2.2 本地测试
+
 ```
 fn run
 
 ```
 
-### 部署应用到仓库
+2.3 部署应用到仓库
 
 ```
 fn deploy etcd_v3
 ```
 
-## 在平台运行
+3. 在平台运行
 
-### 首先设置必须的环境变量
+3.1 首先设置必须的环境变量
 
 ```
 # Set your Function server address
@@ -203,9 +216,9 @@ FUNCAPI=YOUR_FUNCTIONS_ADDRESS
 ETCD_SERVER=""
 ```
 
-### Running with Functions
+3.2 Running with Functions
 
-创建应用
+* 创建应用
 
 ```
 curl -X POST --data '{
@@ -218,7 +231,7 @@ curl -X POST --data '{
 }' http://$FUNCAPI/v1/apps
 ```
 
-创建路由
+* 创建路由
 
 ```
 curl -X POST --data '{
@@ -229,7 +242,7 @@ curl -X POST --data '{
 }' http://$FUNCAPI/v1/apps/etcd_v3/routes
 ```
 
-#### 云端运行试试？
+4. 云端运行试试？
 
 ```
 curl -X POST --data '{"method": "put","key":"/hello","value":"hello word"}' http://$FUNCAPI/r/etcd_v3/command
@@ -237,19 +250,19 @@ curl -X POST --data '{"method": "get","key":"/hello"}' http://$FUNCAPI/r/etcd_v3
 
 ```
 
-# Twitter Function Image
+### Twitter Function Image
 
 This function exemplifies an authentication in Twitter API and get latest tweets of an account.
 
-## Requirements
+1. Requirements
 
 - Functions API
 - fn 
 - Configure a [Twitter App](https://apps.twitter.com/) and [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
 
-## Development
+2. Development
 
-### 构建本地镜像
+2.1 构建本地镜像
 
 ```
 # 修改func.yaml文件，将name改成你自己的镜像名称。
@@ -258,20 +271,21 @@ This function exemplifies an authentication in Twitter API and get latest tweets
 fn build
 
 ```
-### 本地测试
+2.2 本地测试
+
 ```
 fn run
 ```
 
-### 上传到镜像仓库
+2.3 上传到镜像仓库
 
 ```
 docker push <镜像名>
 ```
 
-## 在平台运行
+3. 在平台运行
 
-### 首先设置必须的环境变量
+3.1 首先设置必须的环境变量
 
 ```
 # Set your Function server address
@@ -286,9 +300,9 @@ ACCESS_TOKEN="XXXXXX"
 ACCESS_SECRET="XXXXXX"
 ```
 
-### Running with Functions
+3.2 Running with Functions
 
-创建应用
+* 创建应用
 
 ```
 curl -X POST --data '{
@@ -304,7 +318,7 @@ curl -X POST --data '{
 }' http://$FUNCAPI/v1/apps
 ```
 
-创建路由
+* 创建路由
 
 ```
 curl -X POST --data '{
@@ -315,29 +329,13 @@ curl -X POST --data '{
 }' http://$FUNCAPI/v1/apps/twitter/routes
 ```
 
-#### 云端运行试试？
+4. 云端运行试试？
 
 ```
 curl -X POST --data '{"username": "zengqingguo"}' http://$FUNCAPI/r/twitter/tweets
 ```
 
-
 ## <a name="框架说明-业务"></a>框架说明-平台
-
-Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提供简单，高效和可扩展性。对于两者的优势不一样：
-
-1. 对于开发者
-
-* 不需要管理服务器，只需要编辑上传业务代码。其他工作由平台完成。
-* 代码微小化，只完成一个功能。维护升级非常简单。
-* 需要时执行计算任务，无需支付闲时费用。真正的按需计算和付费。
-
- 若你自己运行本框架，费用问题将不是你的考虑范围。
-
-2. 对于平台运营者
-
-* 资源利用率极高，只有在实际计算时消耗资源。
-* 适用于任何语言，任何技术设计的方法的统一运行平台。
 
 平台架构图如下所示：
 
@@ -363,7 +361,13 @@ Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提�
 
 ## <a name="应用开发"></a>应用开发
 
-(补充)
+* FaaS应用可使用任何语言进行开发
+
+* 应用具有一定的运行时间，即完成计算后退出
+
+* 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果
+
+* 应用需要以dockerfile进行镜像打包
 
 # <a name="生产环境"></a>生产环境
 
