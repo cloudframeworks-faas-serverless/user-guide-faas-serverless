@@ -6,8 +6,8 @@
 
 * [在线演示](#在线演示)
 * [快速部署](#快速部署)
-   * [平台](#平台部署)
-   * [应用](#应用部署)
+   * [平台部署](#平台部署)
+   * [应用部署](#应用部署)
 * [框架说明-平台](#框架说明-平台) 
 * [框架说明-应用](#框架说明-应用)
 * [应用开发](#应用开发)
@@ -22,7 +22,7 @@ http://www.faas.pro
 
 # <a name="快速部署"></a>快速部署
 
-## <a name="平台部署"></a>平台
+## <a name="平台部署"></a>平台部署
 
 1. [准备Docker环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
 
@@ -153,31 +153,9 @@ http://www.faas.pro
    fn --help
    ```
 
-## <a name="应用部署"></a>应用
+## <a name="应用部署"></a>应用部署
 
-### 实例一：获取twitter指定用户的最近推文
 
-开始前，请确认你已完成以上步骤。若你想要先体验部署应用，可使用本框架维护服务端：http://api.faas.pro
-
-1. 查看源码
-
-   [GitHub地址](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
-
-2. 构建与运行应用
-
-   [README.md](https://github.com/cloudframeworks-functionservice/function-example/blob/master/twitter/README.md)
-
-### 实例二：使用FaaS操作ETCD v3
-
-开始前，请确认你已完成以上步骤。若你想要先体验部署应用，可使用本框架维护服务端：http://api.faas.pro
-
-1. 查看源码
-
-   [GitHub地址](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
-
-2. 构建与运行应用
-
-   [README.md](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/README.md)
 
 ## <a name="框架说明-业务"></a>框架说明-平台
 
@@ -214,7 +192,9 @@ Serverless/FaaS 是一种新的计算范例，可为开发人员和运营商提�
 
 ## <a name="框架说明-应用"></a>框架说明-应用
 
+获取twitter指定用户的最近推文
 
+使用FaaS操作ETCD v3
 
 ## <a name="应用开发"></a>应用开发
 
