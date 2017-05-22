@@ -6,7 +6,7 @@ MAC环境下可能会出现无法成功部署安装的情况（原因不明确�
 
 1. 在Macintosh HD下新建命名为`opt`的文件夹
 
-2. 在上述文件夹内新建命名为`function`的文件夹
+2. 在`opt`文件夹内新建命名为`function`的文件夹
 
 3. 在`function`文件夹内新建三个文件夹，分别命名为`mysql`、`redis`、`traefik`
 
