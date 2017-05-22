@@ -48,8 +48,7 @@ http://www.faas.pro
 * docker-compose安装
 ```
 # 执行前请确认已完成系统环境准备。
-wget http://fs.faas.pro/functon-docker-compose.yml -o docker-compose.yml
-docker-compose up -d
+curl fs.faas.pro/dc-up |sh
 ```
 * [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
 
