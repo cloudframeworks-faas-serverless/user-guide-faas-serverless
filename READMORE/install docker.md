@@ -53,7 +53,7 @@ echo "192.168.0.100 faas.org" >> /etc/hosts
 * 使用faas.org域名
 ```
 wget fs.faas.pro/faas.org.key -o /etc/ssl/faas.org/faas.org.key
-wget fs.faas.pro/faas.org.pem -o /etc/ssl/faas.org/faas.org.pem
+wget fs.faas.pro/faas.org.crt -o /etc/ssl/faas.org/faas.org.crt
 ```
 * 使用自己的域名 >> [构建自签证书](https://xiaoai.me/?p=82) / [购买一年免费阿里云域名证书]()
 
