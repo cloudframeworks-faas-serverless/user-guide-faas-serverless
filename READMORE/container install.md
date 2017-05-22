@@ -11,7 +11,7 @@
              mysql:5.5
       ```
 
-   * 安装消息队列服务REDIS
+* 安装消息队列服务REDIS
 
       ```
       docker run -d --name function-redis \
@@ -20,7 +20,7 @@
         redis redis-server --appendonly yes
       ```
 
-   * 安装API服务
+* 安装API服务
 
       ```
       docker run -d --link function-mysql:db \
@@ -38,7 +38,7 @@
          hub.faas.pro/functions
       ```
 
-   * 安装UI控制台
+* 安装UI控制台
 
       ```
       docker run -d --restart=always --name function-ui --link function:api \
@@ -50,7 +50,7 @@
             iron/functions-ui
       ```
 
-   * 安装镜像仓库服务
+* 安装镜像仓库服务
 
       ```
       docker run -d --name function-hub \
@@ -64,7 +64,7 @@
          registry:2
       ```
 
-   * 安装负载均衡和代理服务traefik
+* 安装负载均衡和代理服务traefik
 
       编辑trafik的配置文件`traefik.toml`
 
