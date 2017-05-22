@@ -47,7 +47,9 @@ docker-compose --version
 1. 增加本地域名解析
 ```
 # 若你的机器IP是192.168.0.100
-echo "192.168.0.100 faas.org" >> /etc/hosts
+echo "192.168.0.100 www.faas.org" >> /etc/hosts
+echo "192.168.0.100 api.faas.org" >> /etc/hosts
+echo "192.168.0.100 hub.faas.org" >> /etc/hosts
 ```
 2. 获取SSL证书
 * 使用faas.org域名
