@@ -74,7 +74,7 @@
       address = ":443"
         [entryPoints.https.tls]
           [[entryPoints.https.tls.certificates]]
-          CertFile = "/etc/ssl/faas.org/faas.org.pem"
+          CertFile = "/etc/ssl/faas.org/faas.org.crt"
           KeyFile = "/etc/ssl/faas.org/faas.org.key"
 
    traefikLogsFile = "log/traefik.log"
@@ -97,7 +97,7 @@
         -v /var/run/docker.sock:/var/run/docker.sock\
         -v /etc/ssl/faas.org/:/etc/ssl/faas.org\
         --restart always\
-        -v /opt/function/hub/log:/log\
+        -v /opt/function/traefik/log:/log\
         --name=traefik\
         traefik --web
    ```
