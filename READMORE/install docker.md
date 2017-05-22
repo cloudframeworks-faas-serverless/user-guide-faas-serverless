@@ -45,17 +45,21 @@ docker-compose --version
 ## 准备域名
 本文框架使用`faas.org`域名进行部署安装，若你有自己的域名，请使用自己的域名。
 1. 增加本地域名解析
+
 ```
 # 若你的机器IP是192.168.0.100
 sudo echo "192.168.0.100 www.faas.org" >> /etc/hosts
 sudo echo "192.168.0.100 api.faas.org" >> /etc/hosts
 sudo echo "192.168.0.100 hub.faas.org" >> /etc/hosts
 ```
+
 2. 获取SSL证书
 * 使用faas.org域名
+
 ```
-wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.key
-wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
+sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.key
+sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 ```
+
 * 使用自己的域名 >> [构建自签证书](https://xiaoai.me/?p=82) / [购买一年免费阿里云域名证书]()
 
