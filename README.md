@@ -50,6 +50,9 @@ http://www.faas.pro
 # 执行前请确认已完成系统环境准备。
 curl fs.faas.pro/dc-up |sh
 ```
+
+**注意**：[Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
+
 * [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
 
 上述步骤完成后访问`faas.org:9999` 你将看到下图所示服务：
