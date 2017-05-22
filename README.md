@@ -47,16 +47,29 @@ http://www.faas.pro
 2. 平台安装
 
     * docker-compose安装
-    
+
         ```
         # 执行前请确认已完成系统环境准备。
         sudo curl fs.faas.pro/dc-up |sh
         ```
 
         [Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
-     
-     * 或[基于镜像安装平台组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
-     * 仓库注意事项    
+
+    * 或[基于镜像安装平台组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)   
+
+    * 镜像仓库注意事项    
+
+        部署过程中我们使用的是自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任。
+
+        参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
+
+3. 安装Fn客户端
+
+    ```
+    curl http://fs.faas.pro/fn | sh
+    export API_URL=http://api.faas.org
+    fn --help
+    ```
 上述步骤完成后访问`www.faas.org:9999` 你将看到下图所示服务：
 
 ![](./image/service.png)
@@ -64,14 +77,6 @@ http://www.faas.pro
 访问`www.faas.org`可以进入控制台：
 
 ![](./image/ui.png)
-
-4. 安装Fn客户端
-
-   ```
-   curl http://fs.faas.pro/fn | sh
-   export API_URL=http://api.faas.pro
-   fn --help
-   ```
 
 ## <a name="操作实例"></a>操作实例
 
@@ -115,7 +120,7 @@ http://www.faas.pro
       ```
        curl -X POST --data '{
           "route": {
-              "image": "hub.faas.pro/etcd_v3:0.0.1",
+                    "image": "hub.faas.pro/etcd_v3:0.0.1",
               "path": "/command",
           }
       }' http://$FUNCAPI/v1/apps/etcd_v3/routes
@@ -142,49 +147,47 @@ http://www.faas.pro
       ```
       # Set your Function server address
       # Eg. api.faas.org
-   
       FUNCAPI=api.faas.org
-   
-      # 以下信息需要在 apps.twitter.com 申请和获取.
-      CUSTOMER_KEY="XXXXXX"
-      CUSTOMER_SECRET="XXXXXX"
-      ACCESS_TOKEN="XXXXXX"
+      # 以下信息需要在 apps.twitter.com 申请和获取.
+      CUSTOMER_KEY="XXXXXX" 
+      CUSTOMER_SECRET="XXXXXX" 
+      ACCESS_TOKEN="XXXXXX" 
       ACCESS_SECRET="XXXXXX"
+      
       ```
+​       3.2 Running with Functions
 
-   3.2 Running with Functions
+*    创建应用
 
-   * 创建应用
+     ```
+     curl -X POST --data '{
+         "app": {
+             "name": "twitter",
+             "config": { 
+                 "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
+                 "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
+                 "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
+                 "ACCESS_SECRET": "'$ACCESS_SECRET'"
+             }
+         }
+     }' http://$FUNCAPI/v1/apps
+     ```
 
-      ```
-      curl -X POST --data '{
-          "app": {
-              "name": "twitter",
-              "config": { 
-                  "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
-                  "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
-                  "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
-                  "ACCESS_SECRET": "'$ACCESS_SECRET'"
-              }
-          }
-      }' http://$FUNCAPI/v1/apps
-      ```
+* 创建路由
 
-   * 创建路由
-
-      ```
+      ​```
       curl -X POST --data '{
           "route": {
               "image": "<镜像名>",
               "path": "/tweets",
           }
       }' http://$FUNCAPI/v1/apps/twitter/routes
-      ```
+      ​```
 
 4. 云端运行
 
   ```
-  curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
+    curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
 
   ```
 
@@ -210,7 +213,11 @@ http://www.faas.pro
 
 ETCD v3 FaaS操作实例
 
+
+
 Twitter Function Image操作实例
+
+
 
 ## <a name="开发你的FaaS应用"></a>开发你的FaaS应用
 
