@@ -55,7 +55,7 @@ http://www.faas.pro
 
         [Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
      
-     * 或[基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
+     * 或[基于镜像安装平台组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
 
 上述步骤完成后访问`faas.org:9999` 你将看到下图所示服务：
 
