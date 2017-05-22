@@ -48,7 +48,7 @@ http://www.faas.pro
 * docker-compose安装
 ```
 # 执行前请确认已完成系统环境准备。
-curl fs.faas.pro/dc-up |sh
+sudo curl fs.faas.pro/dc-up |sh
 ```
 
 **注意**：[Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
