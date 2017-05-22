@@ -45,15 +45,17 @@ http://www.faas.pro
 1. [准备系统环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
 
 2. 平台安装
-* docker-compose安装
-```
-# 执行前请确认已完成系统环境准备。
-sudo curl fs.faas.pro/dc-up |sh
-```
 
-**注意**：[Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
+    * docker-compose安装
+    
+        ```
+        # 执行前请确认已完成系统环境准备。
+        sudo curl fs.faas.pro/dc-up |sh
+        ```
 
-* [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
+        [Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
+
+    * [基于镜像安装组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
 
 上述步骤完成后访问`faas.org:9999` 你将看到下图所示服务：
 
