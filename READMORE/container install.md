@@ -1,7 +1,7 @@
  * 安装数据持久化服务MYSQL
 
       ```
-      docker run -d --restart=always -v `pwd`/data:/var/lib/mysql \
+      docker run -d --restart=always -v /opt/function/mysql/data:/var/lib/mysql \
              --name function-mysql \
              --restart=always  \
              -e MYSQL_DATABASE=func \
@@ -16,7 +16,7 @@
       ```
       docker run -d --name function-redis \
         --restart=always  \
-        -v `pwd`/data:/data\
+        -v /opt/function/redis/data:/data\
         redis redis-server --appendonly yes
       ```
 
@@ -32,7 +32,7 @@
          -l traefik.frontend.entryPoints=http \
          -l traefik.frontend.rule=Host:api.faas.org \
          -v /var/run/docker.sock:/var/run/docker.sock \
-         -v $PWD/data:/app/data \
+         -v /opt/function/data:/app/data \
          -e DB_URL="mysql://func:func-password@tcp(db:3306)/func" \
          -e MQ_URL="redis://mq:6379" \
          hub.faas.pro/functions
@@ -55,7 +55,7 @@
       ```
       docker run -d --name function-hub \
          --restart always \
-         -v `pwd`/data:/var/lib/registry \
+         -v /opt/function/hub/data:/var/lib/registry \
          -l traefik.port=5000\
          -l traefik.tags=function-hub\
          -l traefik.frontend.rule=Host:hub.faas.org\
@@ -88,18 +88,18 @@
       # Requiredi
       endpoint = "unix:///var/run/docker.sock"
       # Required
-      domain = "faas.pro"
+      domain = "faas.org"
       watch = true
       exposedbydefault = true
       ```
 
       ```
       docker run -d -p 9999:8080 -p 80:80 -p 443:443\
-           -v `pwd`/traefik.toml:/etc/traefik/traefik.toml\
+           -v /etc/function/traefik.toml:/etc/traefik/traefik.toml\
            -v /var/run/docker.sock:/var/run/docker.sock\
            -v /etc/ssl/faas.org/:/etc/ssl/faas.org\
            --restart always\
-           -v `pwd`/log:/log\
+           -v /opt/function/hub/log:/log\
            --name=traefik\
            traefik --web
       ```
