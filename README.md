@@ -84,7 +84,7 @@ http://www.faas.pro
 
 ### ETCD v3 FaaS操作实例
 
-1. 部署一个 ETCD v3 应用 ，若已部署忽略本步骤。 ([部署方式](etcd_v3_server.md))
+1. 部署一个 ETCD v3 应用 ，若已部署忽略本步骤。 ([部署方式](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/etcd_v3_server.md))
 
 2. [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
