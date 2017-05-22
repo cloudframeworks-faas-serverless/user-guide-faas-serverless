@@ -56,7 +56,7 @@ http://www.faas.pro
         [Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
      
      * 或[基于镜像安装平台组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)
-     * 仓库注意事项
+     * 仓库注意事项    
 上述步骤完成后访问`www.faas.org:9999` 你将看到下图所示服务：
 
 ![](./image/service.png)
@@ -79,30 +79,9 @@ http://www.faas.pro
 
 ### ETCD v3 FaaS操作实例
 
-1. ETCD v3 server ([好雨部署](etcd_v3_server.md))
+1. 部署一个 ETCD v3 应用 ，若已部署忽略本步骤。 ([部署方式](etcd_v3_server.md))
 
-2. Development
-
-   2.1 构建本地镜像
-
-      ```
-      # 修改func.yaml文件，将name改成你自己的镜像名称。
-      # build it
-
-      fn build
-      ```
-
-   2.2 本地测试
-
-      ```
-      fn run
-      ```
-
-   2.3 部署应用到仓库
-
-      ```
-      fn deploy etcd_v3
-      ```
+2. [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
 3. 在平台运行
 
@@ -110,12 +89,9 @@ http://www.faas.pro
 
       ```
       # Set your Function server address
-      # Eg. api.faas.pro
-
-      FUNCAPI=YOUR_FUNCTIONS_ADDRESS
-
-      # ETCD服务端地址需要先部署etcd,参考： (Requirements)[#Requirements]
-
+      # Eg. api.faas.org
+      FUNCAPI=api.faas.org
+      # ETCD服务端地址需要先部署etcd
       ETCD_SERVER=""
       ```
 
@@ -139,7 +115,7 @@ http://www.faas.pro
       ```
        curl -X POST --data '{
           "route": {
-              "image": "<镜像名>",
+              "image": "hub.faas.pro/etcd_v3:0.0.1",
               "path": "/command",
           }
       }' http://$FUNCAPI/v1/apps/etcd_v3/routes
@@ -157,28 +133,7 @@ http://www.faas.pro
 
 1. 配置[Twitter App](https://apps.twitter.com/) 及 [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
 
-2. Development
-
-   2.1 构建本地镜像
-
-      ```
-      # 修改func.yaml文件，将name改成你自己的镜像名称。
-      # build it
-
-      fn build
-      ```
-   
-   2.2 本地测试
-
-      ```
-      fn run
-      ```
-
-   2.3 上传到镜像仓库
-
-      ```
-      docker push <镜像名>
-      ```
+2. [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
 3. 在平台运行
 
@@ -186,11 +141,11 @@ http://www.faas.pro
 
       ```
       # Set your Function server address
-      # Eg. api.faas.pro
+      # Eg. api.faas.org
    
-      FUNCAPI=YOUR_FUNCTIONS_ADDRESS
+      FUNCAPI=api.faas.org
    
-      # 以下信息在 apps.twitter.com 申请和获取 (Requirements)[#Requirements]
+      # 以下信息需要在 apps.twitter.com 申请和获取.
       CUSTOMER_KEY="XXXXXX"
       CUSTOMER_SECRET="XXXXXX"
       ACCESS_TOKEN="XXXXXX"
@@ -229,7 +184,7 @@ http://www.faas.pro
 4. 云端运行
 
   ```
-  curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets 
+  curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
 
   ```
 
@@ -257,7 +212,7 @@ ETCD v3 FaaS操作实例
 
 Twitter Function Image操作实例
 
-## <a name="FaaS应用开发"></a>FaaS应用开发
+## <a name="开发你的FaaS应用"></a>开发你的FaaS应用
 
 如果想要自己开发FaaS应用，可参考[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)这两个例子。
 
