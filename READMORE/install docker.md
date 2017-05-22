@@ -55,5 +55,5 @@ echo "192.168.0.100 faas.org" >> /etc/hosts
 wget fs.faas.pro/faas.org.key -o /etc/ssl/faas.org/faas.org.key
 wget fs.faas.pro/faas.org.pem -o /etc/ssl/faas.org/faas.org.pem
 ```
-* 使用自己的域名 >> [构建自签证书]() / [购买一年免费阿里云域名证书]()
+* 使用自己的域名 >> [构建自签证书](https://xiaoai.me/?p=82) / [购买一年免费阿里云域名证书]()
 
