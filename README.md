@@ -233,6 +233,11 @@ Twitter Function Image操作实例
 
 * 应用需要以dockerfile进行镜像打包
 
+1. 使用lambda函数
+确保你的nodejs主处理函数文件名为：`func.js`
+```
+fn init --runtime lambda-node <DOCKER_HUB_USERNAME>/lambda-node
+```
 # <a name="生产环境"></a>生产环境
 
 `TODO`
