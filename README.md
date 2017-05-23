@@ -70,7 +70,7 @@ http://www.faas.pro
     export API_URL=http://api.faas.org
     fn --help
     ```
-上述步骤完成后访问`www.faas.org:9999` 你将看到下图所示服务：
+    上述步骤完成后访问`www.faas.org:9999` 你将看到下图所示服务：
 
 ![](./image/service.png)
 
@@ -155,7 +155,7 @@ http://www.faas.pro
       ACCESS_SECRET="XXXXXX"
       
       ```
-​       3.2 Running with Functions
+   ​       3.2 Running with Functions
 
 *    创建应用
 
@@ -209,15 +209,32 @@ http://www.faas.pro
 
 * Hub：存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
 
-## <a name="框架说明-应用"></a>框架说明-操作实例 （@Barnett 添加实际操作演示）
+## <a name="框架说明-应用"></a>框架说明-操作实例 
+
+** 请确认安装了fn命令行客户端并配置了环境变量`API_URL=http://api.faas.org`
 
 ETCD v3 FaaS操作实例
 
-
+```
+# 创建应用(指定了测试用etcd v3 server地址)
+fn apps create --config ETCD_SERVER=grf1f947.7804f67d.ali-sh-s1.goodrain.net:20577 etcd_v3
+# 创建路由
+fn routes create etcd_v3 /command -i hub.faas.pro/etcd_v3:0.0.1
+# 运行方法
+echo '{"method":"put","key":"hello","value":"word"}' | fn call etcd_v3  /command
+echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
+```
 
 Twitter Function Image操作实例
 
-
+```
+# 创建应用(根据你的twitter账号信息更改***)
+fn apps create --config ACCESS_SECRET=***,ACCESS_TOKEN=***,CUSTOMER_KEY=***,CUSTOMER_SECRET=*** twitter
+# 创建路由
+fn routes create twitter /tweets -i hub.faas.pro/func-twitter:0.0.1
+# 运行方法,可以使用任何人的账号名替换`username`的值
+echo '{"username":"zengqingguo"}' | fn call twitter /twitter
+```
 
 ## <a name="开发你的FaaS应用"></a>开发你的FaaS应用
 
@@ -226,12 +243,26 @@ Twitter Function Image操作实例
 需要注意的是，与普通应用相比，FaaS应用有以下特点／不同：
 
 * FaaS应用可使用任何语言进行开发
-
 * 应用具有一定的运行时间，即完成计算后退出
-
 * 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果
-
 * 应用需要以dockerfile进行镜像打包
+
+使用fn命令构建你的代码：
+
+```
+# create func.yaml file, replace $USERNAME with your Docker Hub username.
+fn init $USERNAME/hello
+# build the function
+fn build
+# test it - you can pass data into it too by piping it in, eg: `cat hello.payload.json | fn run`
+fn run
+# Once it's ready, build and push it to Docker Hub
+fn build && fn push
+# create an app - you only do this once per app
+fn apps create myapp
+# create a route that maps /hello to your new function
+fn routes create myapp /hello
+```
 
 # <a name="生产环境"></a>生产环境
 
