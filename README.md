@@ -247,7 +247,7 @@ echo '{"username":"zengqingguo"}' | fn call twitter /twitter
 * 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果
 * 应用需要以dockerfile进行镜像打包
 
-使用fn命令构建你的代码：
+1. 使用fn命令构建你的代码：
 
 ```
 # create func.yaml file, replace $USERNAME with your Docker Hub username.
@@ -264,6 +264,13 @@ fn apps create myapp
 fn routes create myapp /hello
 ```
 
+2. 使用lambda函数
+
+确保你的nodejs主处理函数文件名为：`func.js`
+
+```
+fn init --runtime lambda-node hub.faas.org/lambda-node
+```
 # <a name="生产环境"></a>生产环境
 
 `TODO`

@@ -47,7 +47,7 @@
          -l traefik.frontend.entryPoints=http \
          -l traefik.port=4000 \
          -l traefik.frontend.rule=Host:www.faas.org\
-         iron/functions-ui
+         hub.faas.pro/functions-ui
    ```
 
 * 安装镜像仓库服务
@@ -93,11 +93,11 @@
 
    ```
    docker run -d -p 9999:8080 -p 80:80 -p 443:443\
-        -v /etc/function/traefik.toml:/etc/traefik/traefik.toml\
+        -v /etc/traefik/traefik.toml:/etc/traefik/traefik.toml\
         -v /var/run/docker.sock:/var/run/docker.sock\
         -v /etc/ssl/faas.org/:/etc/ssl/faas.org\
         --restart always\
         -v /opt/function/traefik/log:/log\
         --name=traefik\
-        traefik --web
+        traefik:1.3-alpine --web
    ```
