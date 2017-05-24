@@ -43,8 +43,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```   
 ## 准备域名
+
 本文框架使用`faas.org`域名进行部署安装，若你有自己的域名，请使用自己的域名。
-1. 增加本地域名解析
+
+1. 增加本地域名解析（可能需要使用`sudo su`命令切换到root账户）
 
 ```
 # 若你的机器IP是192.168.0.100
@@ -54,6 +56,7 @@ sudo echo "192.168.0.100 hub.faas.org" >> /etc/hosts
 ```
 
 2. 获取SSL证书
+
 * 使用faas.org域名
 
 ```
