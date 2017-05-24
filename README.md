@@ -78,11 +78,11 @@ http://www.faas.pro
 
 ![](./image/ui.png)
 
-## <a name="操作实例"></a>操作实例
+# <a name="操作实例"></a>操作实例
 
 **注意：进行以下步骤首先需确保上文平台及Fn客户端已完整部署**
 
-### ETCD v3 FaaS操作实例
+## ETCD v3 FaaS操作实例
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
@@ -134,7 +134,7 @@ http://www.faas.pro
 
       ```
 
-### Twitter Function Image操作实例
+## Twitter Function Image操作实例
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
@@ -191,7 +191,7 @@ http://www.faas.pro
 
       ```
 
-## <a name="框架说明-平台"></a>框架说明-平台
+# <a name="框架说明-平台"></a>框架说明-平台
 
 平台架构图如下所示：
 
@@ -209,11 +209,11 @@ http://www.faas.pro
 
 * Hub：存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
 
-## <a name="框架说明-应用"></a>框架说明-操作实例 
+# <a name="框架说明-应用"></a>框架说明-操作实例 
 
 **请确认安装了fn命令行客户端并配置了环境变量`API_URL=http://api.faas.org`**
 
-ETCD v3 FaaS操作实例
+## ETCD v3 FaaS操作实例
 
 ```
 # 创建应用(指定了测试用etcd v3 server地址)
@@ -225,7 +225,7 @@ echo '{"method":"put","key":"hello","value":"word"}' | fn call etcd_v3  /command
 echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 ```
 
-Twitter Function Image操作实例
+## Twitter Function Image操作实例
 
 ```
 # 创建应用(根据你的twitter账号信息更改***)
@@ -236,7 +236,7 @@ fn routes create twitter /tweets -i hub.faas.pro/func-twitter:0.0.1
 echo '{"username":"zengqingguo"}' | fn call twitter /twitter
 ```
 
-## <a name="开发你的FaaS应用"></a>开发你的FaaS应用
+# <a name="开发你的FaaS应用"></a>开发你的FaaS应用
 
 如果想要自己开发FaaS应用，可参考[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)这两个例子。
 
@@ -246,6 +246,8 @@ echo '{"username":"zengqingguo"}' | fn call twitter /twitter
 * 应用具有一定的运行时间，即完成计算后退出
 * 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果
 * 应用需要以dockerfile进行镜像打包
+
+**步骤：**
 
 1. 使用fn命令构建你的代码：
 
