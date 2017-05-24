@@ -84,13 +84,13 @@ http://www.faas.pro
 
 ### ETCD v3 FaaS操作实例
 
+[查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
+
 1. 部署一个 ETCD v3 应用 ，若已部署忽略本步骤。 ([部署方式](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/etcd_v3_server.md))
 
-2. [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
+2. 在平台运行
 
-3. 在平台运行
-
-   3.1 首先设置必须的环境变量
+   2.1 首先设置必须的环境变量
 
       ```
       # Set your Function server address
@@ -100,7 +100,7 @@ http://www.faas.pro
       ETCD_SERVER=""
       ```
 
-   3.2 Running with Functions
+   2.2 Running with Functions
 
    * 创建应用
 
@@ -126,7 +126,7 @@ http://www.faas.pro
       }' http://$FUNCAPI/v1/apps/etcd_v3/routes
       ```
 
-4. 云端运行
+3. 云端运行
 
       ```
       curl -X POST --data '{"method": "put","key":"/hello","value":"hello word"}' http://$FUNCAPI/r/etcd_v3/command
@@ -136,13 +136,13 @@ http://www.faas.pro
 
 ### Twitter Function Image操作实例
 
+[查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
+
 1. 配置[Twitter App](https://apps.twitter.com/) 及 [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
 
-2. [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
+2. 在平台运行
 
-3. 在平台运行
-
-   3.1 首先设置必须的环境变量
+   2.1 首先设置必须的环境变量
 
       ```
       # Set your Function server address
@@ -155,41 +155,40 @@ http://www.faas.pro
       ACCESS_SECRET="XXXXXX"
       
       ```
-   ​       3.2 Running with Functions
+   2.2 Running with Functions
 
-*    创建应用
+      * 创建应用
 
-     ```
-     curl -X POST --data '{
-         "app": {
-             "name": "twitter",
-             "config": { 
-                 "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
-                 "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
-                 "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
-                 "ACCESS_SECRET": "'$ACCESS_SECRET'"
-             }
-         }
-     }' http://$FUNCAPI/v1/apps
-     ```
+      ```
+      curl -X POST --data '{
+          "app": {
+              "name": "twitter",
+              "config": { 
+                  "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
+                  "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
+                  "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
+                  "ACCESS_SECRET": "'$ACCESS_SECRET'"
+              }
+          }
+      }' http://$FUNCAPI/v1/apps
+      ```
 
-* 创建路由
+      * 创建路由
 
-      ​```
+      ```
       curl -X POST --data '{
           "route": {
               "image": "<镜像名>",
               "path": "/tweets",
           }
       }' http://$FUNCAPI/v1/apps/twitter/routes
-      ​```
+      ```
 
-4. 云端运行
+  3. 云端运行
 
-  ```
-    curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
-
-  ```
+      ```
+      curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
+      ```
 
 ## <a name="框架说明-平台"></a>框架说明-平台
 
