@@ -211,7 +211,7 @@ http://www.faas.pro
 
 ## <a name="框架说明-应用"></a>框架说明-操作实例 
 
-** 请确认安装了fn命令行客户端并配置了环境变量`API_URL=http://api.faas.org`
+**请确认安装了fn命令行客户端并配置了环境变量`API_URL=http://api.faas.org`**
 
 ETCD v3 FaaS操作实例
 
