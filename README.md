@@ -184,11 +184,12 @@ http://www.faas.pro
       }' http://$FUNCAPI/v1/apps/twitter/routes
       ```
 
-  3. 云端运行
-      
-     ```
-     curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
-     ```
+3. 云端运行
+
+      ```
+      curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
+
+      ```
 
 ## <a name="框架说明-平台"></a>框架说明-平台
 
