@@ -42,7 +42,7 @@ http://www.faas.pro
 
 ## <a name="平台部署"></a>平台部署
 
-1. [准备系统环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/install%20docker.md)
+1. [准备系统环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/准备系统环境.md)
 
 2. 平台安装
 
