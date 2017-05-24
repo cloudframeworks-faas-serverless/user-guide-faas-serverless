@@ -287,7 +287,7 @@ fn init --runtime lambda-node hub.faas.org/lambda-node
 
 # <a name="社群贡献"></a>社群贡献
 
-+ QQ群: 
++ QQ群: 457506070
 + [参与贡献](CONTRIBUTING.md)
 + [联系我们](mailto:info@goodrain.com)
 
