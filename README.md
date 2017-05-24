@@ -197,7 +197,7 @@ http://www.faas.pro
 
 ![](./image/architecture.png)
 
-* Traefik：了解学习现代化反向代理／负载均衡（Traefik:https://traefik.io/）
+* [Traefik](https://traefik.io/)：了解学习现代化反向代理／负载均衡
 
 * FunctionAPI：提供一个无状态的API服务。提供应用创建，配置，运行等API
 
