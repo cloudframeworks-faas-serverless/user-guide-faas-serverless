@@ -53,7 +53,7 @@ http://www.faas.pro
         sudo curl fs.faas.pro/dc-up |sh
         ```
 
-        [Mac环境下部署报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
+        [Mac环境下部署可能报错解决方法](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/macdeploysolution.md)
 
     * 或[基于镜像安装平台组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)   
 
