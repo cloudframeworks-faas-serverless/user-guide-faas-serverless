@@ -108,19 +108,21 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
-1. 创建应用（etcd_v3 server地址替换`***`）
+1. 部署一个ETCD_v3应用 ，若已部署忽略本步骤。 ([部署方式](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/etcd_v3_server.md))
+
+2. 创建应用（etcd_v3 server地址替换`***`）
 
 ```
 fn apps create --config ETCD_SERVER=*** etcd_v3
 ```
 
-2. 创建路由
+3. 创建路由
 
 ```
 fn routes create etcd_v3 /command -i hub.faas.pro/etcd_v3:0.0.1
 ```
 
-3. 运行方法
+4. 运行方法
 
 ```
 echo '{"method":"put","key":"hello","value":"world"}' | fn call etcd_v3  /command
@@ -131,20 +133,22 @@ echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
-1. 创建应用(根据你的twitter账号信息更改`***`)
+1. 配置[Twitter App](https://apps.twitter.com/)及[configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens)
+
+2. 创建应用(根据你的twitter账号信息更改`***`)
 
 ```
 fn apps create --config ACCESS_SECRET=***,ACCESS_TOKEN=***,CUSTOMER_KEY=***,CUSTOMER_SECRET=*** twitter
 ```
 
-2. 创建路由
+3. 创建路由
 
 ```
 fn routes create twitter /tweets -i hub.faas.pro/func-twitter:0.0.1
 
 ```
 
-3. 运行方法,可以使用任何人的账号名替换`***`(username值)
+4. 运行方法,可以使用任何人的账号名替换`***`(username值)
 
 ```
 echo '{"username":"***"}' | fn call twitter /twitter
