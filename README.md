@@ -91,13 +91,13 @@ http://www.faas.pro
 
 5. 访问
 
-    通过`www.faas.org:9999`查看服务：
+    * 通过`www.faas.org:9999`查看服务：
 
-    <div align=center><img width="900" height="" src="./image/service.png"/></div>
+<div align=center><img width="900" height="" src="./image/service.png"/></div>
 
-    通过`www.faas.org`进入控制台：
+    * 通过`www.faas.org`进入控制台：
 
-    <div align=center><img width="900" height="" src="./image/ui.png"/></div>
+<div align=center><img width="900" height="" src="./image/ui.png"/></div>
 
 # <a name="操作实例"></a>操作实例
 
