@@ -202,13 +202,12 @@ fn apps create myapp
 fn routes create myapp /hello
 ```
 
-2. 使用lambda函数
-
-确保你的nodejs主处理函数文件名为：`func.js`
+2. 使用lambda函数(确保你的node.js主处理函数文件名为：`func.js`)
 
 ```
 fn init --runtime lambda-node hub.faas.org/lambda-node
 ```
+
 # <a name="生产环境"></a>生产环境
 
 `TODO`
