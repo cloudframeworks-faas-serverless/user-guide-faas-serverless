@@ -144,10 +144,10 @@ fn routes create twitter /tweets -i hub.faas.pro/func-twitter:0.0.1
 
 ```
 
-3. 运行方法,可以使用任何人的账号名替换`username`的值
+3. 运行方法,可以使用任何人的账号名替换`***`(username值)
 
 ```
-echo '{"username":"zengqingguo"}' | fn call twitter /twitter
+echo '{"username":"***"}' | fn call twitter /twitter
 ```
 
 # <a name="框架说明-平台"></a>框架说明-平台
