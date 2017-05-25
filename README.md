@@ -72,9 +72,7 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
     * 或[基于镜像安装平台组件](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/container%20install.md)   
 
-    * 镜像仓库注意事项    
-
-		此处部署过程使用自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任，参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
+    * 镜像仓库注意：此处部署过程使用自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任，参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)   
 
 4. 安装Fn客户端([Fn - CLI tool](https://github.com/iron-io/functions/blob/master/fn/README.md)）
 
