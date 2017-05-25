@@ -188,22 +188,22 @@ echo '{"username":"***"}' | fn call twitter /twitter
 1. 使用fn命令构建你的代码：
 
 ```
-# create func.yaml file, replace $USERNAME with your Docker Hub username.
+# 创建func.yaml文件 - 用Docker Hub username替换$USERNAME
 fn init $USERNAME/hello
 
-# build the function
+# 创建function
 fn build
 
-# test it - you can pass data into it too by piping it in, eg: `cat hello.payload.json | fn run`
+# 测试 - 通过管道传入数据, 例如:`cat hello.payload.json | fn run`
 fn run
 
-# Once it's ready, build and push it to Docker Hub
+# 完成后构建并将其push至Docker Hub
 fn build && fn push
 
-# create an app - you only do this once per app
+# 创建一个app - 每个app仅执行一次
 fn apps create myapp
 
-# create a route that maps /hello to your new function
+# 为function创建一个route
 fn routes create myapp /hello
 ```
 
