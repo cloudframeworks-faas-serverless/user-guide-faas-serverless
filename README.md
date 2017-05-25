@@ -42,9 +42,33 @@ http://www.faas.pro
 
 ## <a name="平台部署"></a>平台部署
 
-1. [准备系统环境](https://github.com/cloudframeworks-functionservice/user-guide-faas/blob/master/READMORE/准备系统环境.md)
+1. [安装Docker及Docker Compose](https://github.com/cloudframeworks-faas-serverless/user-guide-faas-serverless/blob/master/READMORE/installdocker&dockercompose.md)
 
-2. 平台安装
+2. 准备域名
+
+本文框架使用`faas.org`域名进行部署安装，若你有自己的域名，请使用自己的域名
+
+    2.1 增加本地域名解析（可能需要使用`sudo su`命令切换到root账户）
+
+        ```
+        # 若你的机器IP是192.168.0.100
+        sudo echo "192.168.0.100 www.faas.org" >> /etc/hosts
+        sudo echo "192.168.0.100 api.faas.org" >> /etc/hosts
+        sudo echo "192.168.0.100 hub.faas.org" >> /etc/hosts
+        ```
+
+    2.2 获取SSL证书
+
+    * 使用faas.org域名
+
+        ```
+        sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.key
+        sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
+        ```
+
+    * 使用自己的域名 >> [构建自签证书](https://xiaoai.me/?p=82)
+
+3. 平台安装
 
     * docker-compose安装
 
@@ -63,7 +87,7 @@ http://www.faas.pro
 
         参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
 
-3. 安装Fn客户端
+4. 安装Fn客户端
 
     ```
     curl http://fs.faas.pro/fn | sh
