@@ -54,7 +54,7 @@ http://www.faas.pro
         sudo echo "机器IP hub.faas.org" >> /etc/hosts
         ```
 
-    * 获取SSL证书
+	* 获取SSL证书
 
         * 使用faas.org域名
 
@@ -67,7 +67,7 @@ http://www.faas.pro
 
 3. 平台安装
 
-    * docker-compose安装（执行前请确认已完成系统环境准备）
+	* docker-compose安装（执行前请确认已完成系统环境准备）
 
         ```
         sudo curl fs.faas.pro/dc-up |sh
@@ -79,7 +79,7 @@ http://www.faas.pro
 
     * 镜像仓库注意事项    
 
-        此处部署过程使用自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任，参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
+		此处部署过程使用自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任，参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
 
 4. 安装Fn客户端
 
@@ -91,30 +91,30 @@ http://www.faas.pro
 
 5. 访问
 
-    * 通过`www.faas.org:9999`查看服务：
+    * 通过www.faas.org:9999查看服务：
 
 <div align=center><img width="900" height="" src="./image/service.png"/></div>
 
-    * 通过`www.faas.org`进入控制台：
+    * 通过www.faas.org进入控制台：
 
 <div align=center><img width="900" height="" src="./image/ui.png"/></div>
 
 # <a name="操作实例"></a>操作实例
 
-**注意：**
+**在进行操作实例前需注意：**
 
-* 进行以下步骤首先需确保上文平台及Fn客户端已完整部署
+* 确保上文平台及Fn客户端已完整部署
 
-* 请确认配置了环境变量`API_URL=http://api.faas.org`
+* 确认配置环境变量`API_URL=http://api.faas.org`
 
 ## ETCD v3 FaaS操作实例
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
-1. 创建应用(指定了测试用etcd v3 server地址)
+1. 创建应用（etcd_v3 server地址替换***）
 
 ```
-fn apps create --config ETCD_SERVER=grf1f947.7804f67d.ali-sh-s1.goodrain.net:20577 etcd_v3
+fn apps create --config ETCD_SERVER=*** etcd_v3
 ```
 
 2. 创建路由
@@ -126,7 +126,7 @@ fn routes create etcd_v3 /command -i hub.faas.pro/etcd_v3:0.0.1
 3. 运行方法
 
 ```
-echo '{"method":"put","key":"hello","value":"word"}' | fn call etcd_v3  /command
+echo '{"method":"put","key":"hello","value":"world"}' | fn call etcd_v3  /command
 echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 ```
 
@@ -173,7 +173,7 @@ echo '{"username":"zengqingguo"}' | fn call twitter /twitter
 
 # <a name="框架说明-应用"></a>框架说明-操作实例 
 
-
+x
 
 # <a name="开发你的FaaS应用"></a>开发你的FaaS应用
 
