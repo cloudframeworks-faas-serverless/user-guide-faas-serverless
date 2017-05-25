@@ -44,9 +44,7 @@ http://www.faas.pro
 
 1. [安装Docker及Docker Compose](https://github.com/cloudframeworks-faas-serverless/user-guide-faas-serverless/blob/master/READMORE/installdocker&dockercompose.md)
 
-2. 准备域名
-
-    本文框架使用`faas.org`域名进行部署安装，若你有自己的域名，可使用自己的域名
+2. 准备域名（这里使用`faas.org`域名进行部署安装，若你有自己的域名，可使用自己的域名）
 
     * 增加本地域名解析（可能需要使用`sudo su`命令切换到root账户）
 
