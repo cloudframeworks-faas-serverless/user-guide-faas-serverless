@@ -49,10 +49,9 @@ http://www.faas.pro
     * 增加本地域名解析（可能需要使用`sudo su`命令切换到root账户）
 
         ```
-        # 若你的机器IP是192.168.0.100
-        sudo echo "192.168.0.100 www.faas.org" >> /etc/hosts
-        sudo echo "192.168.0.100 api.faas.org" >> /etc/hosts
-        sudo echo "192.168.0.100 hub.faas.org" >> /etc/hosts
+        sudo echo "机器IP www.faas.org" >> /etc/hosts
+        sudo echo "机器IP api.faas.org" >> /etc/hosts
+        sudo echo "机器IP hub.faas.org" >> /etc/hosts
         ```
 
     * 获取SSL证书
@@ -68,10 +67,9 @@ http://www.faas.pro
 
 3. 平台安装
 
-    * docker-compose安装
+    * docker-compose安装（执行前请确认已完成系统环境准备）
 
         ```
-        # 执行前请确认已完成系统环境准备。
         sudo curl fs.faas.pro/dc-up |sh
         ```
 
@@ -81,9 +79,7 @@ http://www.faas.pro
 
     * 镜像仓库注意事项    
 
-        部署过程中我们使用的是自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任。
-
-        参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
+        此处部署过程使用自签的ssl证书，使用仓库时需要注意添加自签CA证书或者域名的信任，参考：[搭建安全的Docker Private Registry完全指南](http://dockone.io/article/1277)
 
 4. 安装Fn客户端
 
@@ -92,13 +88,16 @@ http://www.faas.pro
     export API_URL=http://api.faas.org
     fn --help
     ```
-    上述步骤完成后访问`www.faas.org:9999` 你将看到下图所示服务：
 
-![](./image/service.png)
+5. 访问
 
-访问`www.faas.org`可以进入控制台：
+    通过`www.faas.org:9999`查看服务：
 
-![](./image/ui.png)
+    <div align=center><img width="900" height="" src="./image/service.png"/></div>
+
+    通过`www.faas.org`进入控制台：
+
+    <div align=center><img width="900" height="" src="./image/ui.png"/></div>
 
 # <a name="操作实例"></a>操作实例
 
@@ -158,7 +157,7 @@ echo '{"username":"zengqingguo"}' | fn call twitter /twitter
 
 平台架构图如下所示：
 
-![](./image/architecture.png)
+<div align=center><img width="900" height="" src="./image/architecture.png"/></div>
 
 * [Traefik](https://traefik.io/)：了解学习现代化反向代理／负载均衡
 
