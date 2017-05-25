@@ -106,6 +106,8 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
 ## ETCD v3 FaaS操作实例
 
+[ETCD_v3介绍](http://www.infoq.com/cn/articles/etcd-interpretation-application-scenario-implement-principle)
+
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
 1. 部署一个ETCD_v3应用 ，若已部署忽略本步骤。 ([部署方式](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/etcd_v3_server.md))
@@ -130,6 +132,8 @@ echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 ```
 
 ## Twitter Function Image操作实例
+
+Twitter Function Image可用于查看推文（tweet）
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
