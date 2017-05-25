@@ -88,11 +88,11 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
 5. 访问
 
-* 通过http://www.faas.org:9999查看服务：
+* 通过 http://www.faas.org:9999 查看服务：
 
 <div align=center><img width="900" height="" src="./image/service.png"/></div>
 
-* 通过http://www.faas.org进入控制台：
+* 通过 http://www.faas.org 进入控制台：
 
 <div align=center><img width="900" height="" src="./image/ui.png"/></div>
 
