@@ -45,27 +45,26 @@ http://www.faas.pro
 1. [安装Docker及Docker Compose](https://github.com/cloudframeworks-faas-serverless/user-guide-faas-serverless/blob/master/READMORE/installdocker&dockercompose.md)
 
 2. 准备域名（这里使用`faas.org`域名进行部署安装，若你有自己的域名，可使用自己的域名）
+    
+* 增加本地域名解析（可能需要使用`sudo su`命令切换到root账户）
 
-    * 增加本地域名解析（可能需要使用`sudo su`命令切换到root账户）
+```
+sudo echo "机器IP www.faas.org" >> /etc/hosts
+sudo echo "机器IP api.faas.org" >> /etc/hosts
+sudo echo "机器IP hub.faas.org" >> /etc/hosts
+```
 
-		```
-        sudo echo "机器IP www.faas.org" >> /etc/hosts
-        sudo echo "机器IP api.faas.org" >> /etc/hosts
-        sudo echo "机器IP hub.faas.org" >> /etc/hosts
-        ```
+* 获取SSL证书（此处使用faas.org域名）
 
-	* 获取SSL证书（此处使用faas.org域名）
-
-        ```
-        sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.key
-        sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
-        ```
-
-        [构建自签证书并使用自己的域名](https://xiaoai.me/?p=82)
+```
+sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.key
+sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
+```
+[构建自签证书并使用自己的域名](https://xiaoai.me/?p=82)
 
 3. 平台安装
 
-	* docker-compose安装（执行前请确认已完成系统环境准备）
+    * docker-compose安装（执行前请确认已完成系统环境准备）
 
         ```
         sudo curl fs.faas.pro/dc-up |sh
