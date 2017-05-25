@@ -80,116 +80,57 @@ http://www.faas.pro
 
 # <a name="操作实例"></a>操作实例
 
-**注意：进行以下步骤首先需确保上文平台及Fn客户端已完整部署**
+**注意：**
+
+* 进行以下步骤首先需确保上文平台及Fn客户端已完整部署
+
+* 请确认配置了环境变量`API_URL=http://api.faas.org`
 
 ## ETCD v3 FaaS操作实例
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
-1. 部署一个 ETCD v3 应用 ，若已部署忽略本步骤。 ([部署方式](https://github.com/cloudframeworks-functionservice/function-example/blob/master/etcd_v3/etcd_v3_server.md))
+1. 创建应用(指定了测试用etcd v3 server地址)
 
-2. 在平台运行
+```
+fn apps create --config ETCD_SERVER=grf1f947.7804f67d.ali-sh-s1.goodrain.net:20577 etcd_v3
+```
 
-   2.1 首先设置必须的环境变量
+2. 创建路由
 
-      ```
-      # Set your Function server address
-      # Eg. api.faas.org
-      FUNCAPI=api.faas.org
-      # ETCD服务端地址需要先部署etcd
-      ETCD_SERVER=""
-      ```
+```
+fn routes create etcd_v3 /command -i hub.faas.pro/etcd_v3:0.0.1
+```
 
-   2.2 Running with Functions
+3. 运行方法
 
-   * 创建应用
-
-      ```
-      curl -X POST --data '{
-          "app": {
-              "name": "etcd_v3",
-              "config": { 
-                  "ETCD_SERVER": "'$ETCD_SERVER'",
-              }
-          }
-      }' http://$FUNCAPI/v1/apps
-      ```
-
-   * 创建路由
-
-      ```
-       curl -X POST --data '{
-          "route": {
-                    "image": "hub.faas.pro/etcd_v3:0.0.1",
-              "path": "/command",
-          }
-      }' http://$FUNCAPI/v1/apps/etcd_v3/routes
-      ```
-
-3. 云端运行
-
-      ```
-      curl -X POST --data '{"method": "put","key":"/hello","value":"hello word"}' http://$FUNCAPI/r/etcd_v3/command
-      curl -X POST --data '{"method": "get","key":"/hello"}' http://$FUNCAPI/r/etcd_v3/command
-
-      ```
+```
+echo '{"method":"put","key":"hello","value":"word"}' | fn call etcd_v3  /command
+echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
+```
 
 ## Twitter Function Image操作实例
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
-1. 配置[Twitter App](https://apps.twitter.com/) 及 [configure Customer Access and Access Token](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
+1. 创建应用(根据你的twitter账号信息更改***)
 
-2. 在平台运行
+```
+fn apps create --config ACCESS_SECRET=***,ACCESS_TOKEN=***,CUSTOMER_KEY=***,CUSTOMER_SECRET=*** twitter
+```
 
-   2.1 首先设置必须的环境变量
+2. 创建路由
 
-      ```
-      # Set your Function server address
-      # Eg. api.faas.org
-      FUNCAPI=api.faas.org
-      # 以下信息需要在 apps.twitter.com 申请和获取.
-      CUSTOMER_KEY="XXXXXX" 
-      CUSTOMER_SECRET="XXXXXX" 
-      ACCESS_TOKEN="XXXXXX" 
-      ACCESS_SECRET="XXXXXX"
-      
-      ```
-   2.2 Running with Functions
+```
+fn routes create twitter /tweets -i hub.faas.pro/func-twitter:0.0.1
 
-      * 创建应用
+```
 
-      ```
-      curl -X POST --data '{
-          "app": {
-              "name": "twitter",
-              "config": { 
-                  "CUSTOMER_KEY": "'$CUSTOMER_KEY'",
-                  "CUSTOMER_SECRET": "'$CUSTOMER_SECRET'", 
-                  "ACCESS_TOKEN": "'$ACCESS_TOKEN'",
-                  "ACCESS_SECRET": "'$ACCESS_SECRET'"
-              }
-          }
-      }' http://$FUNCAPI/v1/apps
-      ```
+3. 运行方法,可以使用任何人的账号名替换`username`的值
 
-      * 创建路由
-
-      ```
-      curl -X POST --data '{
-          "route": {
-              "image": "<镜像名>",
-              "path": "/tweets",
-          }
-      }' http://$FUNCAPI/v1/apps/twitter/routes
-      ```
-
-3. 云端运行
-
-      ```
-      curl -X POST --data '{"username": "想要获取的Twitter账户名"}' http://$FUNCAPI/r/twitter/tweets
-
-      ```
+```
+echo '{"username":"zengqingguo"}' | fn call twitter /twitter
+```
 
 # <a name="框架说明-平台"></a>框架说明-平台
 
@@ -211,30 +152,7 @@ http://www.faas.pro
 
 # <a name="框架说明-应用"></a>框架说明-操作实例 
 
-**请确认安装了fn命令行客户端并配置了环境变量`API_URL=http://api.faas.org`**
 
-## ETCD v3 FaaS操作实例
-
-```
-# 创建应用(指定了测试用etcd v3 server地址)
-fn apps create --config ETCD_SERVER=grf1f947.7804f67d.ali-sh-s1.goodrain.net:20577 etcd_v3
-# 创建路由
-fn routes create etcd_v3 /command -i hub.faas.pro/etcd_v3:0.0.1
-# 运行方法
-echo '{"method":"put","key":"hello","value":"word"}' | fn call etcd_v3  /command
-echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
-```
-
-## Twitter Function Image操作实例
-
-```
-# 创建应用(根据你的twitter账号信息更改***)
-fn apps create --config ACCESS_SECRET=***,ACCESS_TOKEN=***,CUSTOMER_KEY=***,CUSTOMER_SECRET=*** twitter
-# 创建路由
-fn routes create twitter /tweets -i hub.faas.pro/func-twitter:0.0.1
-# 运行方法,可以使用任何人的账号名替换`username`的值
-echo '{"username":"zengqingguo"}' | fn call twitter /twitter
-```
 
 # <a name="开发你的FaaS应用"></a>开发你的FaaS应用
 
