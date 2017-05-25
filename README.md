@@ -108,7 +108,7 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)
 
-1. 创建应用（etcd_v3 server地址替换***）
+1. 创建应用（etcd_v3 server地址替换`***`）
 
 ```
 fn apps create --config ETCD_SERVER=*** etcd_v3
@@ -131,7 +131,7 @@ echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
-1. 创建应用(根据你的twitter账号信息更改***)
+1. 创建应用(根据你的twitter账号信息更改`***`)
 
 ```
 fn apps create --config ACCESS_SECRET=***,ACCESS_TOKEN=***,CUSTOMER_KEY=***,CUSTOMER_SECRET=*** twitter
