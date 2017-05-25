@@ -53,13 +53,12 @@ sudo echo "机器IP api.faas.org" >> /etc/hosts
 sudo echo "机器IP hub.faas.org" >> /etc/hosts
 ```
 
-* 获取SSL证书（此处使用faas.org域名）
+* 获取SSL证书（此处使用faas.org域名，你可以 [构建自签证书并使用自己的域名](https://xiaoai.me/?p=82)）
 
 ```
 sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.key
 sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 ```
-[构建自签证书并使用自己的域名](https://xiaoai.me/?p=82)
 
 3. 平台安装
 
