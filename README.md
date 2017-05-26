@@ -136,7 +136,7 @@ echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 
 ## Twitter Function Image操作实例
 
-Twitter Function Image可用于查看推文（tweet）
+Twitter Function Image可用于查看推文（**需要科学上网**）
 
 [查看方法源码](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)
 
