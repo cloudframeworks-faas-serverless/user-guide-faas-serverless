@@ -122,8 +122,15 @@ fn routes create etcd_v3 /command -i hub.faas.pro/etcd_v3:0.0.1
 
 4. 运行方法
 
+* PUT
+
 ```
 echo '{"method":"put","key":"hello","value":"world"}' | fn call etcd_v3  /command
+```
+
+* GET
+
+```
 echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 ```
 
