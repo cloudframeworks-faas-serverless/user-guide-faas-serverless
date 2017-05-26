@@ -138,7 +138,7 @@ Twitter Function Image可用于查看推文（tweet）
 2. 创建应用(根据你的twitter账号信息更改`***`)
 
 ```
-fn apps create --config ACCESS_SECRET=***,ACCESS_TOKEN=***,CUSTOMER_KEY=***,CUSTOMER_SECRET=*** twitter
+fn apps create --config ACCESS_SECRET=*** --config ACCESS_TOKEN=*** --config CUSTOMER_KEY=*** --config CUSTOMER_SECRET=*** twitter
 ```
 
 3. 创建路由
