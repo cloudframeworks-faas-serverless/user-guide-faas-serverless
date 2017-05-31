@@ -2,7 +2,7 @@
 
 [FaaS](http://blog.alexellis.io/functions-as-a-service/)(Function as a Service)／[Serverless](https://martinfowler.com/articles/serverless.html)概念在最初并不为大众所接受，但随着微服务架构及[事件驱动架构](http://microservices.io/patterns/data/event-driven-architecture.html)的发展成熟，越来越多人认识到了其中价值。（[Serverless架构综述](https://martinfowler.com/articles/serverless.html?from=singlemessage&isappinstalled=0)）
 
-简单来说，FaaS／Serverless是一种新的计算范例，为开发者和运营商提供简单、高效、可扩展的计算方法，我们可以把它看作是比微服务更细粒度的架构模式。FaaS／Serverless并不意味着没有服务器，而是通过将复杂的服务器架构透明化，使开发者专注于业务／任务本身，强调了一种减少计算资源关注、工作粒度从服务器切换到“任务”的思想。
+简单来说，FaaS／Serverless是一种新的计算范例，为开发者和运营商提供简单、高效、可扩展的计算方法，我们可以把它看作是比微服务更细粒度的架构模式。FaaS／Serverless并不意味着没有服务器，而是通过将复杂的服务器架构透明化，使开发者专注于业务／任务本身，强调了一种减少计算资源关注、工作粒度从服务器切换到“任务”的思想。（[FaaS、PaaS和无服务器体系结构的优势](http://www.infoq.com/cn/news/2016/06/faas-serverless-architecture)）
 
 对于开发者来说，FaaS／Serverless意味着：
 
@@ -18,16 +18,22 @@
 
 * 一个适用于任何语言、任何技术设计的方法的统一运行平台
 
-本篇[云框架](ABOUT.md)将以一个自建FaaS平台 http://www.faas.pro 及两个FaaS操作实例[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)为例介绍FaaS／Serverless及其最佳实践。
+本篇[云框架](ABOUT.md)将以一个自建FaaS平台 http://www.faas.pro 及两个FaaS方法（function）实例[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)为例介绍FaaS／Serverless及其最佳实践。
+
+适用于以下场景：
+
+* 低频请求场景
+
+* 流量突发场景
 
 # 内容概览
 
 * [在线演示](#在线演示)
 * [快速部署](#快速部署)
    * [平台部署](#平台部署)
-   * [操作实例](#操作实例)
+   * [方法实例](#方法实例)
 * [框架说明-平台](#框架说明-平台) 
-* [FaaS应用开发](#FaaS应用开发)
+* [FaaS方法开发](#FaaS方法开发)
 * [生产环境](#生产环境)
 * [常见问题](#常见问题)
 * [更新计划](#更新计划)
@@ -92,7 +98,7 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
 <div align=center><img width="900" height="" src="./image/ui.png"/></div>
 
-# <a name="操作实例"></a>操作实例
+# <a name="操作实例"></a>方法实例
 
 **在进行操作实例前需注意：**
 
@@ -100,7 +106,7 @@ sudo wget -P /etc/ssl/faas.org/ fs.faas.pro/faas.org.crt
 
 * 确认配置环境变量`API_URL=http://api.faas.org`
 
-## ETCD v3 FaaS操作实例
+## ETCD v3 FaaS方法实例
 
 [ETCD_v3介绍](http://www.infoq.com/cn/articles/etcd-interpretation-application-scenario-implement-principle)
 
@@ -134,7 +140,7 @@ echo '{"method":"put","key":"hello","value":"world"}' | fn call etcd_v3  /comman
 echo '{"method":"get","key":"hello"}' | fn call etcd_v3 /command
 ```
 
-## Twitter Function Image操作实例
+## Twitter Function Image方法实例
 
 Twitter Function Image可用于查看推文（**需要科学上网**）
 
@@ -169,9 +175,9 @@ echo '{"username":"***"}' | fn call twitter /tweets
 
 * [Traefik](https://traefik.io/)：了解学习现代化反向代理／负载均衡
 
-* FunctionAPI：提供一个无状态的API服务。提供应用创建，配置，运行等API
+* FunctionAPI：提供一个无状态的API服务。提供FaaS方法创建，配置，运行等API
 
-* Mysql：存储应用方法元数据
+* Mysql：存储FaaS方法元数据
 
 * Redis：消息队列，每次方法调用API产生的任务送往消息队列，调度与执行器从消息队列获取任务并执行
 
@@ -179,16 +185,16 @@ echo '{"username":"***"}' | fn call twitter /tweets
 
 * Hub：存储你的方法镜像，使用docker官方镜像仓库服务。项目地址：https://github.com/docker/distribution
 
-# <a name="开发你的FaaS应用"></a>开发你的FaaS应用
+# <a name="开发你的FaaS方法"></a>开发你的FaaS方法
 
-如果想要自己开发FaaS应用，可参考[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)这两个例子。
+如果想要自己开发FaaS方法，可参考[ETCD_v3](https://github.com/cloudframeworks-functionservice/function-example/tree/master/etcd_v3)、[Twitter Function Image](https://github.com/cloudframeworks-functionservice/function-example/tree/master/twitter)这两个例子。
 
-需要注意的是，与普通应用相比，FaaS应用有以下特点／不同：
+需要注意的是，与普通应用相比，FaaS方法有以下特点／不同：
 
-* FaaS应用可使用任何语言进行开发
-* 应用具有一定的运行时间，即完成计算后退出
-* 应用从标准输入或环境变量获取输入数据，以标准输出输出计算结果
-* 应用需要以dockerfile进行镜像打包
+* FaaS方法可使用任何语言进行开发
+* FaaS方法具有一定的运行时间，即完成计算后退出
+* FaaS方法从标准输入或环境变量获取输入数据，以标准输出输出计算结果
+* FaaS方法需要以dockerfile进行镜像打包
 
 **步骤：**
 
